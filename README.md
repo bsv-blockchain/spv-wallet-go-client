@@ -258,3 +258,6 @@ View the [contributing guidelines](.github/CODE_STANDARDS.md#3-contributing) and
 ## License
 
 [![License](https://img.shields.io/github/license/bitcoin-sv/spv-wallet-go-client.svg?style=flat&v=2)](LICENSE)
+
+
+<!-- Documentation update -->
