@@ -5,8 +5,8 @@ go 1.24.0
 require (
 	github.com/bitcoin-sv/go-sdk v1.1.16
 	github.com/bitcoin-sv/spv-wallet/models v1.0.0-beta.39
-	github.com/pquerna/otp v1.4.0
-	github.com/stretchr/testify v1.10.0
+	github.com/pquerna/otp v1.5.0
+	github.com/stretchr/testify v1.11.1
 )
 
 require (
@@ -20,8 +20,8 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/go-resty/resty/v2 v2.15.3
-	github.com/jarcoal/httpmock v1.3.1
+	github.com/go-resty/resty/v2 v2.16.5
+	github.com/jarcoal/httpmock v1.4.1
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
