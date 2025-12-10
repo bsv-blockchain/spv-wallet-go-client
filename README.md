@@ -28,7 +28,7 @@
 
 ## Requirements and Compatibility
 
-Instalation: 
+Instalation:
 ```shell script
 go get -u github.com/bitcoin-sv/spv-wallet-go-client
 ```
@@ -47,12 +47,12 @@ The client **does not support** the following:
 
 ### Current Compatibility
 The client is designed for full compatibility with the newer `/api/v1/` endpoints exposed by the SPV Wallet API. It focuses on aligning with the latest standards and structure provided by the API.
- 
+
 ### API Admin Endpoints Compatibility
 
 #### Access Keys API
 | HTTP Method | Endpoint                     | Action               | Support Status | API Code                                          |   Pagination     |
-|-------------|-------------------------------|----------------------|----------------|--------------------------------------------------|----------------- | 
+|-------------|-------------------------------|----------------------|----------------|--------------------------------------------------|----------------- |
 | GET         | /api/v1/admin/users/keys     | Search access keys   | ✅             | [API](/internal/api/v1/admin/accesskeys/access_keys_api.go#L25) | ✅ |
 
 #### Contacts API
@@ -177,11 +177,11 @@ While the client strives to support the latest API features, there may be a dela
 - Reach out for support to ensure a smooth development experience.
 
 
- 
+
 ## Quick start
 
-The implementation enforces separation of concerns by isolating admin and non-admin APIs, requiring separate initialization for their respective clients. This ensures clarity and modularity when utilizing the exposed functionality. 
- 
+The implementation enforces separation of concerns by isolating admin and non-admin APIs, requiring separate initialization for their respective clients. This ensures clarity and modularity when utilizing the exposed functionality.
+
 ### `UserAPI` Initialization Methods:
 
 ### 1. [`NewUserAPIWithAccessKey`](/user_api.go#L468)
@@ -216,7 +216,7 @@ The implementation enforces separation of concerns by isolating admin and non-ad
 
 
 ## Documentation
- 
+
 View the generated [documentation](https://pkg.go.dev/github.com/bitcoin-sv/spv-wallet-go-client)
 
 For in-depth information and guidance, please refer to the [SPV Wallet Documentation](https://docs.bsvblockchain.org/network-topology/applications/spv-wallet).

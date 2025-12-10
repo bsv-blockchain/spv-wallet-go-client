@@ -143,7 +143,7 @@ func getTotpOpts(period, digits uint) *totp.ValidateOpts {
 
 	return &totp.ValidateOpts{
 		Period: period,
-		Digits: otp.Digits(digits), //nolint: gosec // digits is a uint from function parameter
+		Digits: otp.Digits(digits),
 	}
 }
 

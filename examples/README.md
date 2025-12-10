@@ -48,7 +48,7 @@ task: Available tasks for this project:
 > Additionally, to make it work properly, you should adjust the `Paymail` to align with your `domains` configuration in the `spv-wallet` instance.
 
 > [!IMPORTANT]
-> `Paymail` is defined in example_keys.go file. 
+> `Paymail` is defined in example_keys.go file.
 
 Before interacting with the SPV Wallet API, you must complete the authorization process.
 
@@ -145,7 +145,7 @@ To help you fully utilize this project, we've outlined a series of steps and imp
 ## Preliminary Setup
 
 > [!TIP]
-> For the best experience, we recommend transferring some funds to your Paymail. This allows the examples to demonstrate key functionality, such as creating transactions with an actual balance. 
+> For the best experience, we recommend transferring some funds to your Paymail. This allows the examples to demonstrate key functionality, such as creating transactions with an actual balance.
 
 You can transfer funds to your Paymail using any Bitcoin SV wallet application that supports Paymail, such as **HandCash** or similar applications.
 
@@ -158,25 +158,25 @@ Ensure that this file is configured appropriately before running the examples.
 
 ## Recommended Order of Examples
 
-1. **`generate_keys`**  
+1. **`generate_keys`**
    Generates new keys. If you want to use these keys in subsequent examples, you can copy them to the `example_keys.go` file.
 
-2. **`admin_add_user`**  
+2. **`admin_add_user`**
    Adds a new user to the wallet. Specifically, it registers the **UserXPub** and associates a **Paymail**.
 
-3. **`get_balance`**  
+3. **`get_balance`**
    Retrieves the current balance for the user. If you've transferred funds to your Paymail, the balance will be displayed here.
 
-4. **`create_transaction`**  
+4. **`create_transaction`**
    Creates a transaction. You can customize the outputs to suit your specific requirements.
 
-5. **`list_transactions`**  
+5. **`list_transactions`**
    Lists all transactions. This includes examples of filtering options.
 
-6. **`send_op_return`**  
+6. **`send_op_return`**
    Sends an OP_RETURN transaction, allowing you to attach data to the blockchain.
 
-7. **`admin_remove_paymail`**  
+7. **`admin_remove_paymail`**
    Removes the user by deleting their Paymail from the wallet.
 
 
