@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
 	clienterrors "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	utils "github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
 	"github.com/bitcoin-sv/spv-wallet/models"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 )
@@ -143,7 +143,7 @@ func getTotpOpts(period, digits uint) *totp.ValidateOpts {
 
 	return &totp.ValidateOpts{
 		Period: period,
-		Digits: otp.Digits(digits),
+		Digits: otp.Digits(digits), //nolint:G115 // digits is a small uint (typically 2-8), no overflow risk
 	}
 }
 

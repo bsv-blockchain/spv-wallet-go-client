@@ -4,9 +4,9 @@ import (
 	"math"
 	"testing"
 
-	compat "github.com/bitcoin-sv/go-sdk/compat/bip32"
 	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
+	compat "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	"github.com/stretchr/testify/require"
 )
 

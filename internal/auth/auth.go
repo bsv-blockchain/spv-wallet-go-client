@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"time"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	bsm "github.com/bitcoin-sv/go-sdk/compat/bsm"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
 	"github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
 	"github.com/bitcoin-sv/spv-wallet/models"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	bsm "github.com/bsv-blockchain/go-sdk/compat/bsm"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 func setSignature(header *http.Header, xPriv *bip32.ExtendedKey, bodyString string) error {
