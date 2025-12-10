@@ -2,6 +2,7 @@ package spvwallet
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 
@@ -28,6 +29,8 @@ import (
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 )
+
+var errHTTPClientNil = errors.New("failed to initialize HTTP client - nil value")
 
 // AdminAPI provides a simplified interface for interacting with admin-related APIs.
 // It abstracts the complexities of making HTTP requests and handling responses,
@@ -400,8 +403,7 @@ func (a *AdminAPI) Status(ctx context.Context) (bool, error) {
 // NewAdminAPIWithXPriv initializes a new AdminAPI instance using an extended private key (xPriv).
 // This function configures the API client with the provided configuration and uses the xPriv key for authentication.
 // If any step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewAdminAPIWithXPriv(cfg config.Config, xPriv string) (*AdminAPI, error) {
 	authenticator, err := auth.NewXprivAuthenticator(xPriv)
 	if err != nil {
@@ -414,8 +416,7 @@ func NewAdminAPIWithXPriv(cfg config.Config, xPriv string) (*AdminAPI, error) {
 // NewAdminAPIWithXPub initializes a new AdminAPI instance using an extended public key (xPub).
 // This function configures the API client with the provided configuration and uses the xPub key for authentication.
 // If any configuration or initialization step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will not be signed.
+// Requests made with this instance will not be signed.
 // For enhanced security, it is strongly recommended to use `NewAdminAPIWithXPriv` instead.
 func NewAdminAPIWithXPub(cfg config.Config, xPub string) (*AdminAPI, error) {
 	authenticator, err := auth.NewXpubOnlyAuthenticator(xPub)
@@ -434,7 +435,7 @@ func initAdminAPI(cfg config.Config, auth authenticator) (*AdminAPI, error) {
 
 	httpClient := restyutil.NewHTTPClient(cfg, auth)
 	if httpClient == nil {
-		return nil, fmt.Errorf("failed to initialize HTTP client - nil value")
+		return nil, errHTTPClientNil
 	}
 
 	return &AdminAPI{

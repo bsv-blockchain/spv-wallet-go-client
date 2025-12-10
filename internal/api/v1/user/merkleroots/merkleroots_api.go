@@ -22,8 +22,8 @@ const (
 type MerkleRootsRepository interface {
 	// GetLastMerkleRoot should return the Merkle root with the highest height from your memory, or undefined if empty.
 	GetLastMerkleRoot() string
-	// SaveMerkleRoots should store newly synced merkle roots into your storage;
-	// NOTE: items are sorted in ascending order by block height.
+	// SaveMerkleRoots should store newly synced merkle roots into your storage.
+	// Items are sorted in ascending order by block height.
 	SaveMerkleRoots(syncedMerkleRoots []models.MerkleRoot) error
 }
 

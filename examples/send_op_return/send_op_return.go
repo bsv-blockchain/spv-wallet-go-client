@@ -39,7 +39,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to finalize draft transaction: %v", err)
 	}
-	fmt.Printf("Finalized draft transaction hex: %s\n", finalized)
+	fmt.Printf("Finalized draft transaction hex: %s\n", finalized) //nolint: forbidigo // example output
 
 	transaction, err := usersAPI.RecordTransaction(ctx, &commands.RecordTransaction{
 		Hex:         finalized,

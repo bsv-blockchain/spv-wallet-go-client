@@ -29,6 +29,11 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
+var (
+	errTotpClientNotInitialized = errors.New("totp client not initialized - xPriv authentication required")
+	errUserHTTPClientNil        = errors.New("failed to initialize HTTP client - nil value")
+)
+
 // UserAPI provides methods for interacting with user-related APIs.
 // It abstracts the details of HTTP request and response handling,
 // simplifying interaction with the endpoints.
@@ -386,7 +391,7 @@ func (u *UserAPI) SyncMerkleRoots(ctx context.Context, repo merkleroots.MerkleRo
 // GenerateTotpForContact generates a TOTP code for the specified contact.
 func (u *UserAPI) GenerateTotpForContact(contact *models.Contact, period, digits uint) (string, error) {
 	if u.totpAPI == nil {
-		return "", errors.New("totp client not initialized - xPriv authentication required")
+		return "", errTotpClientNotInitialized
 	}
 
 	totp, err := u.totpAPI.GenerateTotpForContact(contact, period, digits)
@@ -400,7 +405,7 @@ func (u *UserAPI) GenerateTotpForContact(contact *models.Contact, period, digits
 // ValidateTotpForContact validates a TOTP code for the specified contact.
 func (u *UserAPI) ValidateTotpForContact(generatorContact *models.Contact, passcode, validatorPaymail string, period, digits uint) error {
 	if u.totpAPI == nil {
-		return errors.New("totp client not initialized - xPriv authentication required")
+		return errTotpClientNotInitialized
 	}
 
 	if err := u.totpAPI.ValidateTotpForContact(generatorContact, passcode, validatorPaymail, period, digits); err != nil {
@@ -431,8 +436,7 @@ func (u *UserAPI) Paymails(ctx context.Context, opts ...queries.QueryOption[filt
 // NewUserAPIWithXPub initializes a new UserAPI instance using an extended public key (xPub).
 // This function configures the API client with the provided configuration and uses the xPub key for authentication.
 // If any configuration or initialization step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will not be signed.
+// Requests made with this instance will not be signed.
 // For enhanced security, it is strongly recommended to use `NewUserAPIWithXPriv` or `NewUserAPIWithAccessKey` instead.
 func NewUserAPIWithXPub(cfg config.Config, xPub string) (*UserAPI, error) {
 	authenticator, err := auth.NewXpubOnlyAuthenticator(xPub)
@@ -446,8 +450,7 @@ func NewUserAPIWithXPub(cfg config.Config, xPub string) (*UserAPI, error) {
 // NewUserAPIWithXPriv initializes a new UserAPI instance using an extended private key (xPriv).
 // This function configures the API client with the provided configuration and uses the xPriv key for authentication.
 // If any step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewUserAPIWithXPriv(cfg config.Config, xPriv string) (*UserAPI, error) {
 	authenticator, err := auth.NewXprivAuthenticator(xPriv)
 	if err != nil {
@@ -465,8 +468,7 @@ func NewUserAPIWithXPriv(cfg config.Config, xPriv string) (*UserAPI, error) {
 // NewUserAPIWithAccessKey initializes a new UserAPI instance using an access key.
 // This function configures the API client and converts the provided access key from either hex or WIF format into a private key.
 // This private key is used for authentication. If any step in the process fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewUserAPIWithAccessKey(cfg config.Config, accessKey string) (*UserAPI, error) {
 	authenticator, err := auth.NewAccessKeyAuthenticator(accessKey)
 	if err != nil {
@@ -519,7 +521,7 @@ func initUserAPI(cfg config.Config, auth authenticator) (*UserAPI, error) {
 
 	httpClient := restyutil.NewHTTPClient(cfg, auth)
 	if httpClient == nil {
-		return nil, fmt.Errorf("failed to initialize HTTP client - nil value")
+		return nil, errUserHTTPClientNil
 	}
 
 	transactionsAPI, err := transactions.NewAPI(url, httpClient)

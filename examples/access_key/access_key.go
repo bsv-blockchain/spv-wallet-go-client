@@ -37,5 +37,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to revoke access key: %v", err)
 	}
-	fmt.Printf("Revoke access key: %s\n", generated.ID)
+	fmt.Printf("Revoke access key: %s\n", generated.ID) //nolint: forbidigo // example output
 }

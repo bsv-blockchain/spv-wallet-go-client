@@ -49,7 +49,7 @@ func TestStatsAPI_Stats(t *testing.T) {
 			// then:
 			got, err := wallet.Stats(context.Background())
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

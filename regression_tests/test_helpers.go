@@ -16,7 +16,8 @@ func assertBalanceAfterTransaction(ctx context.Context, t *testing.T, user *user
 	t.Helper()
 
 	actualBalance, err := user.balance(ctx)
-	if !assert.NoError(t, err, "Failed to retrieve balance for %s", user.paymail) {
+	if err != nil {
+		t.Logf("Failed to retrieve balance for %s: %v", user.paymail, err)
 		return false
 	}
 

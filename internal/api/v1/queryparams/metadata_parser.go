@@ -38,7 +38,7 @@ func (m *MetadataParser) generateQueryParams(depth int, path metadataPath, val a
 		return nil
 	}
 
-	switch reflect.TypeOf(val).Kind() { //nolint: exhaustive
+	switch reflect.TypeOf(val).Kind() { //nolint: exhaustive // only checking for specific kinds, not all possible kinds
 	case reflect.Map:
 		return m.processMapQueryParams(depth+1, val, path, params)
 	case reflect.Slice:
@@ -68,7 +68,7 @@ func (m *MetadataParser) processSliceQueryParams(val any, path metadataPath, par
 		item := slice.Index(i)
 
 		// safe check - only primitive types are allowed in arrays
-		// note: kind := item.Kind() is not enough, because it returns interface instead of actual underlying type
+		// kind := item.Kind() is not enough, because it returns interface instead of actual underlying type
 		kind := reflect.TypeOf(item.Interface()).Kind()
 		if kind == reflect.Map || kind == reflect.Slice {
 			return errors.ErrMetadataWrongTypeInArray

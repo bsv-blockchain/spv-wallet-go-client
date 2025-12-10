@@ -95,7 +95,7 @@ func TestXPubAPI_XPub(t *testing.T) {
 
 			//  then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

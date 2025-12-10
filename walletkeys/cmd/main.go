@@ -13,7 +13,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("XPriv: ", keys.Keys.XPriv())
-	fmt.Println("XPub: ", keys.Keys.XPub())
-	fmt.Println("Mnemonic: ", keys.Mnemonic())
+	fmt.Println("XPriv: ", keys.XPriv())       //nolint: forbidigo // example output
+	fmt.Println("XPub: ", keys.XPub())         //nolint: forbidigo // example output
+	fmt.Println("Mnemonic: ", keys.Mnemonic()) //nolint: forbidigo // example output
 }

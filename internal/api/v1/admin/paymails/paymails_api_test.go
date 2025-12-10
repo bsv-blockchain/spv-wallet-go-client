@@ -102,7 +102,7 @@ func TestPaymailsAPI_CreatePaymail(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -159,7 +159,7 @@ func TestPaymailsAPI_Paymails(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -200,7 +200,7 @@ func TestPaymailsAPI_Paymail(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

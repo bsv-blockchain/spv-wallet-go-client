@@ -40,7 +40,7 @@ func TestURLValues_AddPair(t *testing.T) {
 	})
 
 	// then:
-	require.EqualValues(t, expectedValues, params.Values)
+	require.Equal(t, expectedValues, params.Values)
 }
 
 func TestURLValues_ParseToMap(t *testing.T) {
@@ -74,5 +74,5 @@ func TestURLValues_ParseToMap(t *testing.T) {
 	got := params.ParseToMap()
 
 	// then:
-	require.EqualValues(t, expectedValues, got)
+	require.Equal(t, expectedValues, got)
 }

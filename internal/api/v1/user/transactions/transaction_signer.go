@@ -44,20 +44,20 @@ func (ts *xPrivTransactionSigner) TransactionSignedHex(dt *response.DraftTransac
 
 	// Enrich inputs
 	for _, draftInput := range dt.Configuration.Inputs {
-		lockingScript, err := script.NewFromHex(draftInput.Destination.LockingScript)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrCreateLockingScript, err)
+		lockingScript, errLS := script.NewFromHex(draftInput.Destination.LockingScript)
+		if errLS != nil {
+			return "", errors.Join(walleterrors.ErrCreateLockingScript, errLS)
 		}
 
 		// prepare unlocking script
-		key, err := getDerivedKeyForDestination(ts.xPriv, &draftInput.Destination)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrGetDerivedKeyForDestination, err)
+		key, errDK := getDerivedKeyForDestination(ts.xPriv, &draftInput.Destination)
+		if errDK != nil {
+			return "", errors.Join(walleterrors.ErrGetDerivedKeyForDestination, errDK)
 		}
 		sigHashFlags := sighash.AllForkID
-		unlockScript, err := p2pkh.Unlock(key, &sigHashFlags)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrCreateUnlockingScript, err)
+		unlockScript, unlockErr := p2pkh.Unlock(key, &sigHashFlags)
+		if unlockErr != nil {
+			return "", errors.Join(walleterrors.ErrCreateUnlockingScript, unlockErr)
 		}
 
 		err = tx.AddInputFrom(draftInput.TransactionID, draftInput.OutputIndex, lockingScript.String(), draftInput.Satoshis, unlockScript)

@@ -1,7 +1,14 @@
 package regressiontests
 
 import (
+	"errors"
 	"fmt"
+)
+
+var (
+	errEmptyEnvURL     = errors.New("validation failed: environment URL is required")
+	errEmptyAdminXPriv = errors.New("validation failed: admin xPriv is required")
+	errEmptyEnvXPriv   = errors.New("validation failed: leader xPriv is required")
 )
 
 // spvWalletServerConfig contains configuration settings for initializing a SPVWalletAPI instance.
@@ -16,15 +23,15 @@ type spvWalletServerConfig struct {
 // It ensures that required fields like EnvURL and keys are not empty.
 func (c *spvWalletServerConfig) validate() error {
 	if c.envURL == "" {
-		return fmt.Errorf("validation failed: environment URL is required")
+		return errEmptyEnvURL
 	}
 
 	if c.adminXPriv == "" {
-		return fmt.Errorf("validation failed: admin xPriv is required")
+		return errEmptyAdminXPriv
 	}
 
 	if c.envXPriv == "" {
-		return fmt.Errorf("validation failed: leader xPriv is required")
+		return errEmptyEnvXPriv
 	}
 
 	return nil
@@ -41,7 +48,7 @@ type spvWalletServer struct {
 
 // setPaymailDomains sets SPV Wallet server clients to have their paymail addresses with the given domain address part.
 func (s *spvWalletServer) setPaymailDomains(domain string) {
-	type paymailSetter interface{ setPaymail(string) }
+	type paymailSetter interface{ setPaymail(domain string) }
 
 	clients := []paymailSetter{s.leader, s.admin, s.user}
 	for _, client := range clients {

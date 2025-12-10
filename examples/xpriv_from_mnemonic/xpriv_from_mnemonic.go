@@ -16,5 +16,5 @@ func main() {
 		log.Fatalf("Failed to get xPriv from mnemonic: %v", err)
 	}
 
-	fmt.Printf("Extracted xPriv: %s\n", key.String())
+	fmt.Printf("Extracted xPriv: %s\n", key.String()) //nolint: forbidigo // example output
 }

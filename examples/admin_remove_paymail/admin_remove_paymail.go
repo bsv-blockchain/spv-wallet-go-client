@@ -22,5 +22,5 @@ func main() {
 		log.Fatalf("Failed to delete paymail: %v", err)
 	}
 
-	fmt.Printf("Paymail deleted: %s\n", examples.Paymail)
+	fmt.Printf("Paymail deleted: %s\n", examples.Paymail) //nolint: forbidigo // example output
 }

@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/merkleroots"
 	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/merkleroots/merklerootstest"
@@ -100,6 +99,6 @@ func TestSyncMerkleRoots(t *testing.T) {
 		err = client.SyncMerkleRoots(context.Background(), repo)
 
 		// then
-		require.ErrorIs(t, err, errors.ErrStaleLastEvaluatedKey)
+		require.ErrorIs(t, err, goclienterr.ErrStaleLastEvaluatedKey)
 	})
 }

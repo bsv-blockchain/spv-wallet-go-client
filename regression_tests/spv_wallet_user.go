@@ -20,6 +20,13 @@ const (
 	TOTP_PERIOD uint = 1200
 )
 
+var (
+	errUserClientNotInitialized  = errors.New("user client is not initialized")
+	errTransactionsResponseEmpty = errors.New("transactions response is empty")
+	errContactNotFound           = errors.New("contact not found")
+	errInsufficientBalance       = errors.New("insufficient balance")
+)
+
 // transactionsSlice represents a slice of response.Transaction objects.
 type transactionsSlice []*response.Transaction
 
@@ -61,7 +68,7 @@ func (u *user) transferFunds(ctx context.Context, paymail string, funds uint64) 
 		return nil, fmt.Errorf("balance failed: %w", err)
 	}
 	if balance < funds {
-		return nil, fmt.Errorf("insufficient balance: %d available, %d required", balance, funds)
+		return nil, fmt.Errorf("insufficient balance: %d available, %d required: %w", balance, funds, errInsufficientBalance)
 	}
 
 	recipient := commands.Recipients{To: paymail, Satoshis: funds}
@@ -83,7 +90,7 @@ func (u *user) transferFunds(ctx context.Context, paymail string, funds uint64) 
 // If the API call fails, it returns a non-nil error with details of the failure.
 func (u *user) transactions(ctx context.Context) (transactionsSlice, error) {
 	if u.client == nil {
-		return nil, errors.New("user client is not initialized")
+		return nil, errUserClientNotInitialized
 	}
 
 	page, err := u.client.Transactions(ctx)
@@ -92,7 +99,7 @@ func (u *user) transactions(ctx context.Context) (transactionsSlice, error) {
 	}
 
 	if page == nil || page.Content == nil {
-		return nil, errors.New("transactions response is empty")
+		return nil, errTransactionsResponseEmpty
 	}
 
 	return transactionsSlice(page.Content), nil
@@ -154,7 +161,7 @@ func (u *user) confirmContact(ctx context.Context, contactPaymail, receivedTotp 
 		return fmt.Errorf("failed to fetch contact %s: %w", contactPaymail, err)
 	}
 	if contactResp == nil {
-		return fmt.Errorf("contact %s not found", contactPaymail)
+		return fmt.Errorf("contact %s not found: %w", contactPaymail, errContactNotFound)
 	}
 
 	contact := mapToContactModel(contactResp)
@@ -203,7 +210,7 @@ func (u *user) generateTotp(ctx context.Context, contactPaymail string) (string,
 		return "", fmt.Errorf("failed to fetch contact %s: %w", contactPaymail, err)
 	}
 	if contactResp == nil {
-		return "", fmt.Errorf("contact %s not found", contactPaymail)
+		return "", fmt.Errorf("contact %s not found: %w", contactPaymail, errContactNotFound)
 	}
 
 	contact := mapToContactModel(contactResp)

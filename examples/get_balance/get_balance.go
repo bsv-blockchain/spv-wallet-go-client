@@ -22,5 +22,5 @@ func main() {
 		log.Fatalf("Failed to fetch xPub: %v", err)
 	}
 
-	fmt.Printf("Current balance: %v\n", xPub.CurrentBalance)
+	fmt.Printf("Current balance: %v\n", xPub.CurrentBalance) //nolint: forbidigo // example output
 }

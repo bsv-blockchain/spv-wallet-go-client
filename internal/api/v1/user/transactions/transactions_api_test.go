@@ -45,7 +45,7 @@ func TestTransactionsAPI_SendToRecipients(t *testing.T) {
 		})
 
 		// then:
-		require.ErrorIs(t, err, nil)
+		require.NoError(t, err)
 		require.Equal(t, transactionstest.ExpectedSendToRecipientsTransaction(t), result)
 	})
 

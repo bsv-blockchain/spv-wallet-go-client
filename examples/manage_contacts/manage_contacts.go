@@ -65,7 +65,7 @@ var ctx = context.Background()
 
 func createInitialContacts() error {
 	// Initial Contacts Creation: Step 1  Create Alice's contact with Bob
-	fmt.Println("\n Creating Alice's contact with Bob")
+	fmt.Println("\n Creating Alice's contact with Bob") //nolint: forbidigo // example output
 	_, err := clients.alice.UpsertContact(ctx, commands.UpsertContact{
 		ContactPaymail:   config.bob.paymail,
 		FullName:         "Bob Smith",
@@ -76,7 +76,7 @@ func createInitialContacts() error {
 	}
 
 	// Initial Contacts Creation: Step 2  Create Bob's contact with Alice
-	fmt.Println("\n Creating Bob's contact with Alice")
+	fmt.Println("\n Creating Bob's contact with Alice") //nolint: forbidigo // example output
 	_, err = clients.bob.UpsertContact(ctx, commands.UpsertContact{
 		ContactPaymail:   config.alice.paymail,
 		FullName:         "Alice Smith",
@@ -91,7 +91,7 @@ func createInitialContacts() error {
 
 func initiateContactVerification() error {
 	// Verification: Step 1  Alice generate TOTP
-	fmt.Println("\n Alice generate TOTP for Bob")
+	fmt.Println("\n Alice generate TOTP for Bob") //nolint: forbidigo // example output
 	aliceTotpForBob, err := generateTOTP(clients.alice, config.bob)
 	if err != nil {
 		return fmt.Errorf("generating TOTP by Alice failed: %w", err)
@@ -100,7 +100,7 @@ func initiateContactVerification() error {
 	logSecureMessage("Alice", "Bob", aliceTotpForBob)
 
 	// Verification: Step 2  Bob validates Alice's TOTP
-	fmt.Println("\n Bob validates Alice's TOTP")
+	fmt.Println("\n Bob validates Alice's TOTP") //nolint: forbidigo // example output
 	err = validateTOTP(clients.bob, config.bob.paymail, config.alice.paymail, aliceTotpForBob)
 	if err != nil {
 		return fmt.Errorf("validating TOTP by Bob failed: %w", err)
@@ -110,7 +110,7 @@ func initiateContactVerification() error {
 	aliceValidated := true
 
 	// Verification: Step 3  Bob generate TOTP
-	fmt.Println("\n Bob generate TOTP for Alice")
+	fmt.Println("\n Bob generate TOTP for Alice") //nolint: forbidigo // example output
 	bobTotpForAlice, err := generateTOTP(clients.bob, config.alice)
 	if err != nil {
 		return fmt.Errorf("generating TOTP by Bob failed: %w", err)
@@ -119,7 +119,7 @@ func initiateContactVerification() error {
 	logSecureMessage("Bob", "Alice", bobTotpForAlice)
 
 	// Verification: Step 4  Alice validates Bob's TOTP
-	fmt.Println("\n Alice validates Bob's TOTP")
+	fmt.Println("\n Alice validates Bob's TOTP") //nolint: forbidigo // example output
 	err = validateTOTP(clients.alice, config.alice.paymail, config.bob.paymail, bobTotpForAlice)
 	if err != nil {
 		return fmt.Errorf("validating TOTP by Alice failed: %w", err)
@@ -129,20 +129,20 @@ func initiateContactVerification() error {
 	bobValidated := true
 
 	if bobValidated && aliceValidated {
-		fmt.Println("Both TOTP verifications succeeded.")
+		fmt.Println("Both TOTP verifications succeeded.") //nolint: forbidigo // example output
 	}
 	return nil
 }
 
 func cleanup() error {
 	// Cleanup: Step 1  Admin deletes Alice's contact with Bob
-	fmt.Println("\n Deleting contact and unconfirm other side")
+	fmt.Println("\n Deleting contact and unconfirm other side") //nolint: forbidigo // example output
 	aliceToBobContact, err := adminGetContact(config.alice.xPub, config.bob.paymail)
 	if err != nil {
 		return fmt.Errorf("failed to get Alice's contact with Bob: %w", err)
 	}
 
-	fmt.Println("\n Admin deletes Alice's contact with Bob")
+	fmt.Println("\n Admin deletes Alice's contact with Bob") //nolint: forbidigo // example output
 	err = clients.admin.DeleteContact(context.Background(), aliceToBobContact.ID)
 	if err != nil {
 		return fmt.Errorf("failed to delete Alice's contact with Bob: %w", err)
@@ -154,14 +154,14 @@ func cleanup() error {
 		return fmt.Errorf("failed to get Bob's contact with Alice: %w", err)
 	}
 
-	fmt.Println("\n Admin unconfirms Bob's contact with Alice")
+	fmt.Println("\n Admin unconfirms Bob's contact with Alice") //nolint: forbidigo // example output
 	err = clients.admin.UnconfirmContact(context.Background(), bobToAliceContact.ID)
 	if err != nil {
 		return fmt.Errorf("failed to unconfirm Bob's contact with Alice: %w", err)
 	}
 
 	// Cleanup: Step 3  Bob removes contact with Alice
-	fmt.Println("\n Bob removes contact with Alice")
+	fmt.Println("\n Bob removes contact with Alice") //nolint: forbidigo // example output
 	if err := clients.bob.RemoveContact(ctx, config.alice.paymail); err != nil {
 		return fmt.Errorf("failed to remove contact with Alice: %w", err)
 	}
@@ -173,14 +173,12 @@ func adminGetContact(creatorOfContactXPub, counterpartyPaymail string) (*respons
 	creatorOfContactXPubID := exampleutil.CreateXpubID(creatorOfContactXPub)
 	response, err := clients.admin.Contacts(
 		context.Background(),
-		queries.QueryOption[filter.AdminContactFilter](
-			queries.QueryWithFilter(filter.AdminContactFilter{
-				ContactFilter: filter.ContactFilter{
-					Paymail: &counterpartyPaymail,
-				},
-				XPubID: &creatorOfContactXPubID,
-			}),
-		),
+		queries.QueryWithFilter(filter.AdminContactFilter{
+			ContactFilter: filter.ContactFilter{
+				Paymail: &counterpartyPaymail,
+			},
+			XPubID: &creatorOfContactXPubID,
+		}),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get contact %w", err)
@@ -225,7 +223,7 @@ func validateTOTP(validatorClient *wallet.UserAPI, validatorPaymail, generatingU
 		config.totpDigits,
 	)
 	if validationErr != nil {
-		fmt.Printf("[WARN] TOTP validation failed: %v\n", validationErr)
+		fmt.Printf("[WARN] TOTP validation failed: %v\n", validationErr) //nolint: forbidigo // example output
 		return validationErr
 	}
 
@@ -235,28 +233,28 @@ func validateTOTP(validatorClient *wallet.UserAPI, validatorPaymail, generatingU
 func main() {
 	if setupUsers {
 		// Initiate users
-		fmt.Println("\n======== Initiating users ========")
+		fmt.Println("\n======== Initiating users ========") //nolint: forbidigo // example output
 		initiateUsers()
 	} else {
-		fmt.Println("We assume that the users: Alice and Bob are already registered.")
-		fmt.Println("If they're not, please set config.SetupUsers to true.")
+		fmt.Println("We assume that the users: Alice and Bob are already registered.") //nolint: forbidigo // example output
+		fmt.Println("If they're not, please set config.SetupUsers to true.")           //nolint: forbidigo // example output
 	}
 
 	// Create initial contacts
-	fmt.Println("\n======== Creating initial contacts ========")
+	fmt.Println("\n======== Creating initial contacts ========") //nolint: forbidigo // example output
 	err := createInitialContacts()
 	if err != nil {
 		log.Fatalf("Error during initial contacts creation: %v", err)
 	}
 
 	// Initiate contact verification
-	fmt.Println("\n======== Initiating contact verification ========")
-	if err := initiateContactVerification(); err != nil {
-		log.Fatalf("Error during verification flow: %v", err)
+	fmt.Println("\n======== Initiating contact verification ========") //nolint: forbidigo // example output
+	if err2 := initiateContactVerification(); err2 != nil {
+		log.Fatalf("Error during verification flow: %v", err2)
 	}
 
 	// Confirm contacts using the admin API
-	fmt.Println("\n======== Confirming contacts ========")
+	fmt.Println("\n======== Confirming contacts ========") //nolint: forbidigo // example output
 	err = clients.admin.ConfirmContacts(ctx, &commands.ConfirmContacts{
 		PaymailA: config.alice.paymail,
 		PaymailB: config.bob.paymail,
@@ -266,7 +264,7 @@ func main() {
 	}
 
 	// Clean up
-	fmt.Println("\n======== Cleaning up ========")
+	fmt.Println("\n======== Cleaning up ========") //nolint: forbidigo // example output
 	if err := cleanup(); err != nil {
 		log.Fatalf("Error during cleanup: %v", err)
 	}

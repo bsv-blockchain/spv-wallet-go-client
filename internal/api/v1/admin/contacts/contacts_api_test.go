@@ -70,7 +70,7 @@ func TestContactsAPI_CreateContact(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -127,7 +127,7 @@ func TestContactsAPI_Contacts(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -213,7 +213,7 @@ func TestContactsAPI_ContactUpdate(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

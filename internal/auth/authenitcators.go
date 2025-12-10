@@ -16,6 +16,8 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
+var errPrivateKeyNil = errors.New("failed to parse private key: key generation resulted in nil")
+
 type XpubAuthenticator struct {
 	hdKey *bip32.ExtendedKey
 }
@@ -132,7 +134,7 @@ func NewAccessKeyAuthenticator(accessKeyHex string) (*AccessKeyAuthenticator, er
 
 	privKey, pubKey := ec.PrivateKeyFromBytes(privKeyBytes)
 	if privKey == nil || pubKey == nil {
-		return nil, errors.New("failed to parse private key: key generation resulted in nil")
+		return nil, errPrivateKeyNil
 	}
 
 	return &AccessKeyAuthenticator{

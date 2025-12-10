@@ -12,7 +12,7 @@ const (
 
 const (
 	// AdminXPriv is used to authenticate as an admin in the spv-wallet.
-	// NOTE: The provided key is a default key that matches SPV Wallet's default configuration.
+	// The provided key is a default key that matches SPV Wallet's default configuration.
 	AdminXPriv string = "xprv9s21ZrQH143K3CbJXirfrtpLvhT3Vgusdo8coBritQ3rcS7Jy7sxWhatuxG5h2y1Cqj8FKmPp69536gmjYRpfga2MJdsGyBsnB12E19CESK"
 
 	// UserXPriv is used to authenticate as a user in the spv-wallet.

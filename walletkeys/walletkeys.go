@@ -30,6 +30,7 @@ func (k *Keys) XPub() string { return k.xPub }
 // used to generate the associated xPriv and XPub HD keys as strings.
 type KeysWithMnemonic struct {
 	Keys
+
 	mnemonic string
 }
 
