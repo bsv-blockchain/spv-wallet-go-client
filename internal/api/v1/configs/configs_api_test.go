@@ -5,11 +5,12 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 const configsURL = "/api/v1/configs/shared"

@@ -7,10 +7,11 @@ import (
 	"testing"
 	"time"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	spvwallet "github.com/bitcoin-sv/spv-wallet-go-client"
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	"github.com/jarcoal/httpmock"
+
+	spvwallet "github.com/bsv-blockchain/spv-wallet-go-client"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
 )
 
 const TestAPIAddr = "http://localhost:3003"
@@ -66,7 +67,7 @@ func MockPKI(t *testing.T, xpub string) string {
 	t.Helper()
 	xPub, _ := bip32.NewKeyFromString(xpub)
 	var err error
-	for i := 0; i < 3; i++ { //magicNumberOfInheritance is 3 -> 2+1; 2: because of the way spv-wallet stores xpubs in db; 1: to make a PKI
+	for i := 0; i < 3; i++ { // magicNumberOfInheritance is 3 -> 2+1; 2: because of the way spv-wallet stores xpubs in db; 1: to make a PKI
 		xPub, err = xPub.Child(0)
 		if err != nil {
 			t.Fatalf("test helper - retrieve a derived child extended key at index 0 failed: %s", err)

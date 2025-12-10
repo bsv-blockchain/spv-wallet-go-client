@@ -5,13 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/merkleroots/merklerootstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/merkleroots/merklerootstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 const merkleRootsURL = "/api/v1/merkleroots"

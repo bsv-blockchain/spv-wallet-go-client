@@ -16,7 +16,8 @@ func assertBalanceAfterTransaction(ctx context.Context, t *testing.T, user *user
 	t.Helper()
 
 	actualBalance, err := user.balance(ctx)
-	if !assert.NoError(t, err, "Failed to retrieve balance for %s", user.paymail) {
+	if err != nil {
+		t.Logf("Failed to retrieve balance for %s: %v", user.paymail, err)
 		return false
 	}
 
@@ -27,7 +28,7 @@ func assertBalanceAfterTransaction(ctx context.Context, t *testing.T, user *user
 // If the variable is not set, it returns the provided default value.
 // This function is intended for use in tests. It calls t.Helper()
 // to ensure that errors are reported at the caller's location.
-func lookupEnvOrDefault(t *testing.T, env string, defaultValue string) string {
+func lookupEnvOrDefault(t *testing.T, env, defaultValue string) string {
 	t.Helper()
 
 	v, ok := os.LookupEnv(env)
@@ -54,7 +55,7 @@ func logSuccessOp(t *testing.T, err error, format string, args ...any) {
 // It initializes the users and returns them as user objects.
 // This function is intended for use in tests. It calls t.Helper()
 // to ensure that errors are reported at the caller's location.
-func prepareUsersForContactsFlowVerification(t *testing.T, spvWalletPG, spvWalletSL *spvWalletServer) (bob *user, alice *user, tom *user, jerry *user) {
+func prepareUsersForContactsFlowVerification(t *testing.T, spvWalletPG, spvWalletSL *spvWalletServer) (bob, alice, tom, jerry *user) {
 	t.Helper()
 
 	// PG = Postgres
@@ -96,14 +97,14 @@ func prepareUsersForContactsFlowVerification(t *testing.T, spvWalletPG, spvWalle
 		paymailID: jerry.paymailID,
 		client:    jerry.client,
 	}
-	return
+	return bob, alice, tom, jerry
 }
 
 // prepareAdminForContactsFlowVerification prepares the admin for the contacts flow verification.
 // It initializes the admin and returns it as an admin object.
 // This function is intended for use in tests. It calls t.Helper()
 // to ensure that errors are reported at the caller's location.
-func prepareAdminForContactsFlowVerification(t *testing.T, spvWalletSL, spvWalletPG *spvWalletServer) (adminSL *admin, adminPG *admin) {
+func prepareAdminForContactsFlowVerification(t *testing.T, spvWalletSL, spvWalletPG *spvWalletServer) (adminSL, adminPG *admin) {
 	t.Helper()
 
 	// PG = Postgres

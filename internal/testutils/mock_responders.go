@@ -64,7 +64,7 @@ func RegisterMockResponder(t *testing.T, client *resty.Client, endpoint string, 
 func NewPaginatedJSONResponder(t *testing.T, files ...string) httpmock.Responder {
 	responses := make([]*http.Response, 0, len(files))
 	for _, file := range files {
-		responses = append(responses, httpmock.NewStringResponse(http.StatusOK, httpmock.File(file).String())) //nolint: bodyclose
+		responses = append(responses, httpmock.NewStringResponse(http.StatusOK, httpmock.File(file).String())) //nolint: bodyclose // mock response object
 	}
 	return httpmock.ResponderFromMultipleResponses(responses)
 }

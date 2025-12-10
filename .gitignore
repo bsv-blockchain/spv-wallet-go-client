@@ -36,3 +36,5 @@ dist
 # Code coverage
 coverage.txt
 
+# Fuzz Tests
+testdata

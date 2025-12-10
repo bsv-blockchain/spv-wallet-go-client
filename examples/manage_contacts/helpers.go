@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
 )
 
 type user struct {
@@ -35,9 +36,9 @@ func assertNoError[T any](val T, err error) T {
 }
 
 func logSecureMessage(from, to, totp string) {
-	fmt.Printf("\n!!! SECURE COMMUNICATION REQUIRED !!!\n%s's TOTP code for %s:\n", from, to)
-	fmt.Printf("TOTP code: %s\n", totp)
-	fmt.Print("Share using: encrypted message, secure email, phone call or in-person meeting.\n")
+	fmt.Printf("\n!!! SECURE COMMUNICATION REQUIRED !!!\n%s's TOTP code for %s:\n", from, to)     //nolint: forbidigo // example output
+	fmt.Printf("TOTP code: %s\n", totp)                                                           //nolint: forbidigo // example output
+	fmt.Print("Share using: encrypted message, secure email, phone call or in-person meeting.\n") //nolint: forbidigo // example output
 }
 
 func mapToContactModel(resp *response.Contact) *models.Contact {
@@ -51,7 +52,7 @@ func mapToContactModel(resp *response.Contact) *models.Contact {
 }
 
 func initiateUsers() {
-	fmt.Println("0. Setting up users (optional)")
+	fmt.Println("0. Setting up users (optional)") //nolint: forbidigo // example output
 
 	// Create account for Alice
 	assertNoError(clients.admin.CreateXPub(ctx, &commands.CreateUserXpub{

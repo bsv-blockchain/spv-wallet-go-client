@@ -5,13 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/paymails/paymailstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/paymails/paymailstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 const paymailsURL = "/api/v1/paymails"
@@ -66,7 +67,7 @@ func TestPaymailsAPI_Paymails(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

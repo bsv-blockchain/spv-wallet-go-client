@@ -5,13 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/xpubs/xpubstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/xpubs/xpubstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 const xpubsURL = "/api/v1/users/current"
@@ -95,7 +96,7 @@ func TestXPubAPI_XPub(t *testing.T) {
 
 			//  then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

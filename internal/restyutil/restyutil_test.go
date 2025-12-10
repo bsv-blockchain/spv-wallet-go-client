@@ -3,13 +3,14 @@ package restyutil_test
 import (
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/restyutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/go-resty/resty/v2"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/restyutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 // mockAuthenticator is a mock implementation of Authenticator interface
@@ -58,7 +59,6 @@ func TestNewHTTPClient_OnAfterResponse(t *testing.T) {
 			// Assert errors
 			require.ErrorIs(t, err, tc.expectedError)
 			require.NotNil(t, resp)
-
 		})
 	}
 }

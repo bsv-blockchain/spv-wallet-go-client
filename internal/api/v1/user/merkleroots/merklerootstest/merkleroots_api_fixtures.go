@@ -1,9 +1,10 @@
 package merklerootstest
 
 import (
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 func ExpectedMerkleRootsPage() *queries.MerkleRootPage {

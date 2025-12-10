@@ -1,8 +1,9 @@
 package commands
 
 import (
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 )
 
 // RecordTransaction holds the arguments required to record a user transaction.

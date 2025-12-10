@@ -1,7 +1,13 @@
 {
+    "blockHash": "47758f612c6bf5b454bcd642fe8031f6",
+    "blockHeight": 512,
     "createdAt": "2024-10-07T14:03:26.736816Z",
-    "updatedAt": "2024-10-07T14:03:26.736816Z",
     "deletedAt": null,
+    "direction": "incoming",
+    "draftId": "",
+    "fee": 1,
+    "hex": "283b1c6deb6d6263b3cec7a4701d46d3",
+    "id": "2c250e21-c33a-41e3-a4e3-77c68b03244e",
     "metadata": {
         "domain": "john.doe.test.4chain.space",
         "example_key1": "example_key10_val",
@@ -15,20 +21,14 @@
         "reference_id": "1c2dcc61-f48f-44f2-aba2-9a759a514d49",
         "user_agent": "node-fetch"
     },
-    "id": "2c250e21-c33a-41e3-a4e3-77c68b03244e",
-    "hex": "283b1c6deb6d6263b3cec7a4701d46d3",
+    "numberOfInputs": 2,
+    "numberOfOutputs": 3,
+    "outputValue": 100,
+    "status": "MINED",
+    "totalValue": 311,
+    "updatedAt": "2024-10-07T14:03:26.736816Z",
     "xpubInIds": null,
     "xpubOutIds": [
         "4c9a0a0d-ea4f-4f03-b740-84438b3d210d"
-    ],
-    "blockHash": "47758f612c6bf5b454bcd642fe8031f6",
-    "blockHeight": 512,
-    "fee": 1,
-    "numberOfInputs": 2,
-    "numberOfOutputs": 3,
-    "draftId": "",
-    "totalValue": 311,
-    "outputValue": 100,
-    "status": "MINED",
-    "direction": "incoming"
+    ]
 }

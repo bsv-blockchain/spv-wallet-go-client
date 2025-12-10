@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/walletkeys"
+	"github.com/bsv-blockchain/spv-wallet-go-client/walletkeys"
 )
 
 func main() {
@@ -16,5 +16,5 @@ func main() {
 		log.Fatalf("Failed to get xPriv from mnemonic: %v", err)
 	}
 
-	fmt.Printf("Extracted xPriv: %s\n", key.String())
+	fmt.Printf("Extracted xPriv: %s\n", key.String()) //nolint: forbidigo // example output
 }

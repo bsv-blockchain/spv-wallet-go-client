@@ -4,18 +4,18 @@ import (
 	"errors"
 	"fmt"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
-	"github.com/bitcoin-sv/go-sdk/script"
-	trx "github.com/bitcoin-sv/go-sdk/transaction"
-	sighash "github.com/bitcoin-sv/go-sdk/transaction/sighash"
-	"github.com/bitcoin-sv/go-sdk/transaction/template/p2pkh"
-	walleterrors "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
+	"github.com/bsv-blockchain/go-sdk/script"
+	trx "github.com/bsv-blockchain/go-sdk/transaction"
+	sighash "github.com/bsv-blockchain/go-sdk/transaction/sighash"
+	"github.com/bsv-blockchain/go-sdk/transaction/template/p2pkh"
+
+	walleterrors "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
-type noopTransactionSigner struct {
-}
+type noopTransactionSigner struct{}
 
 func (*noopTransactionSigner) TransactionSignedHex(dt *response.DraftTransaction) (string, error) {
 	return "", nil
@@ -45,20 +45,20 @@ func (ts *xPrivTransactionSigner) TransactionSignedHex(dt *response.DraftTransac
 
 	// Enrich inputs
 	for _, draftInput := range dt.Configuration.Inputs {
-		lockingScript, err := script.NewFromHex(draftInput.Destination.LockingScript)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrCreateLockingScript, err)
+		lockingScript, errLS := script.NewFromHex(draftInput.Destination.LockingScript)
+		if errLS != nil {
+			return "", errors.Join(walleterrors.ErrCreateLockingScript, errLS)
 		}
 
 		// prepare unlocking script
-		key, err := getDerivedKeyForDestination(ts.xPriv, &draftInput.Destination)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrGetDerivedKeyForDestination, err)
+		key, errDK := getDerivedKeyForDestination(ts.xPriv, &draftInput.Destination)
+		if errDK != nil {
+			return "", errors.Join(walleterrors.ErrGetDerivedKeyForDestination, errDK)
 		}
 		sigHashFlags := sighash.AllForkID
-		unlockScript, err := p2pkh.Unlock(key, &sigHashFlags)
-		if err != nil {
-			return "", errors.Join(walleterrors.ErrCreateUnlockingScript, err)
+		unlockScript, unlockErr := p2pkh.Unlock(key, &sigHashFlags)
+		if unlockErr != nil {
+			return "", errors.Join(walleterrors.ErrCreateUnlockingScript, unlockErr)
 		}
 
 		err = tx.AddInputFrom(draftInput.TransactionID, draftInput.OutputIndex, lockingScript.String(), draftInput.Satoshis, unlockScript)

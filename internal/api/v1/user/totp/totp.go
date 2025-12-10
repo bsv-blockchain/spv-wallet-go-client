@@ -3,16 +3,18 @@ package totp
 import (
 	"encoding/base32"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"time"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	utils "github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
 	"github.com/bitcoin-sv/spv-wallet/models"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
+
+	clienterrors "github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	utils "github.com/bsv-blockchain/spv-wallet-go-client/internal/cryptoutil"
 )
 
 const (
@@ -21,6 +23,8 @@ const (
 	// DefaultDigits - Default TOTP length
 	DefaultDigits uint = 2
 )
+
+var errTotpInvalid = errors.New("ValidateTotpForContact: TOTP is invalid")
 
 // API handles TOTP generation and validation.
 type API struct {
@@ -64,7 +68,7 @@ func (b *API) ValidateTotpForContact(generatorContact *models.Contact, passcode,
 		return fmt.Errorf("ValidateTotpForContact: error when validating TOTP: %w", err)
 	}
 	if !valid {
-		return fmt.Errorf("ValidateTotpForContact: TOTP is invalid")
+		return errTotpInvalid
 	}
 	return nil
 }
@@ -81,7 +85,7 @@ func (b *API) makeSharedSecret(contact *models.Contact) ([]byte, error) {
 
 func (b *API) getSharedSecretFactors(contact *models.Contact) (*ec.PrivateKey, *ec.PublicKey, error) {
 	if b.xPriv == nil {
-		return nil, nil, errors.ErrMissingXpriv
+		return nil, nil, clienterrors.ErrMissingXpriv
 	}
 
 	// Derive private key from xPriv for PKI operations.
@@ -98,7 +102,7 @@ func (b *API) getSharedSecretFactors(contact *models.Contact) (*ec.PrivateKey, *
 	// Convert contact's public key.
 	pubKey, err := convertPubKey(contact.PubKey)
 	if err != nil {
-		return nil, nil, errors.ErrContactPubKeyInvalid
+		return nil, nil, clienterrors.ErrContactPubKeyInvalid
 	}
 
 	return privKey, pubKey, nil
@@ -140,7 +144,7 @@ func getTotpOpts(period, digits uint) *totp.ValidateOpts {
 
 	return &totp.ValidateOpts{
 		Period: period,
-		Digits: otp.Digits(digits), //nolint: gosec
+		Digits: otp.Digits(digits), //#nosec G115 -- digits is a small uint (typically 2-8), no overflow risk
 	}
 }
 

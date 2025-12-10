@@ -1,31 +1,20 @@
 {
-    "createdAt": "2024-11-05T07:30:14.219077Z",
-    "updatedAt": "2024-11-05T07:30:14.219077Z",
-    "deletedAt": null,
-    "metadata": {
-        "receiver": "john.doe.test4@john.doe.test.4chain.space",
-        "sender": "john.doe.test4@john.doe.test.4chain.space"
-    },
-    "id": "36be741b-31c7-4aed-8840-5e5b2eafeb41",
-    "hex": "c959fdb6-f438-4ef9-aef9-92a1852885ef",
-    "xpubId": "3f0a90d3-4f8b-45f6-81e4-9858fa47ecc0",
-    "expiresAt": "2024-11-05T07:30:27.372912Z",
     "configuration": {
         "changeDestinations": [
             {
-                "createdAt": "2024-11-05T07:30:14.219077Z",
-                "updatedAt": "2024-11-05T07:30:14.219077Z",
-                "deletedAt": null,
-                "metadata": null,
-                "id": "c86dd8f4-316f-4d71-be00-7bd1a38079e4",
-                "xpubId": "d6884260-1624-415b-8625-652a59345ead",
-                "lockingScript": "189593db-0048-4fb7-80da-b69bce8fbf78",
-                "type": "pubkeyhash",
+                "address": "3f96ea59-ac83-476e-a0ea-f0d668086081",
                 "chain": 1,
+                "createdAt": "2024-11-05T07:30:14.219077Z",
+                "deletedAt": null,
+                "draftId": "fc60742e-92b5-4a98-90a7-422d89879494",
+                "id": "c86dd8f4-316f-4d71-be00-7bd1a38079e4",
+                "lockingScript": "189593db-0048-4fb7-80da-b69bce8fbf78",
+                "metadata": null,
                 "num": 5,
                 "paymailExternalDerivationNum": null,
-                "address": "3f96ea59-ac83-476e-a0ea-f0d668086081",
-                "draftId": "fc60742e-92b5-4a98-90a7-422d89879494"
+                "type": "pubkeyhash",
+                "updatedAt": "2024-11-05T07:30:14.219077Z",
+                "xpubId": "d6884260-1624-415b-8625-652a59345ead"
             }
         ],
         "changeDestinationsStrategy": "",
@@ -35,32 +24,23 @@
         "expiresIn": 0,
         "fee": 0,
         "feeUnit": {
-            "satoshis": 1,
-            "bytes": 1000
+            "bytes": 1000,
+            "satoshis": 1
         },
         "fromUtxos": null,
         "includeUtxos": null,
         "inputs": [
             {
                 "createdAt": "2024-11-05T07:30:14.219077Z",
-                "updatedAt": "2024-11-05T07:30:14.219077Z",
                 "deletedAt": null,
-                "metadata": null,
-                "transactionId": "3e0c5f6d-0dfc-462d-8a63-31b7a20d0c6b",
-                "outputIndex": 0,
-                "id": "203277ff-006a-4e48-bbe9-2f1b6fb9ddfd",
-                "xpubId": "4676a7d6-45f8-46b3-850b-68a9bb7642bc",
-                "satoshis": 100,
-                "scriptPubKey": "9d7eede4-00cd-47fd-ab3d-b0ae6d2ca6a6",
-                "type": "pubkeyhash",
-                "draftId": "f1ebe294-d921-4fb7-8b22-ed33e090e7ea",
-                "reservedAt": "2024-11-05T07:30:14.207287Z",
-                "spendingTxId": "",
-                "transaction": null,
                 "destination": {
+                    "address": "6e4f50b1-356b-4453-a83e-2f412f328c25",
+                    "chain": 0,
                     "createdAt": "2024-11-05T07:30:14.219077Z",
-                    "updatedAt": "2024-11-05T07:30:14.219077Z",
                     "deletedAt": null,
+                    "draftId": "",
+                    "id": "bc22a0b9-d91c-4d0b-a7e4-8ea2d37e42db",
+                    "lockingScript": "e459d941-d820-4663-a5d8-6a12457825e9",
                     "metadata": {
                         "domain": "john.doe.test.4chain.space",
                         "ip_address": "127.0.0.1",
@@ -69,16 +49,25 @@
                         "satoshis": 100,
                         "user_agent": "node-fetch"
                     },
-                    "id": "bc22a0b9-d91c-4d0b-a7e4-8ea2d37e42db",
-                    "xpubId": "325b1440-3af4-4a65-bf90-d88ed978948b",
-                    "lockingScript": "e459d941-d820-4663-a5d8-6a12457825e9",
-                    "type": "pubkeyhash",
-                    "chain": 0,
                     "num": 0,
                     "paymailExternalDerivationNum": 3,
-                    "address": "6e4f50b1-356b-4453-a83e-2f412f328c25",
-                    "draftId": ""
-                }
+                    "type": "pubkeyhash",
+                    "updatedAt": "2024-11-05T07:30:14.219077Z",
+                    "xpubId": "325b1440-3af4-4a65-bf90-d88ed978948b"
+                },
+                "draftId": "f1ebe294-d921-4fb7-8b22-ed33e090e7ea",
+                "id": "203277ff-006a-4e48-bbe9-2f1b6fb9ddfd",
+                "metadata": null,
+                "outputIndex": 0,
+                "reservedAt": "2024-11-05T07:30:14.207287Z",
+                "satoshis": 100,
+                "scriptPubKey": "9d7eede4-00cd-47fd-ab3d-b0ae6d2ca6a6",
+                "spendingTxId": "",
+                "transaction": null,
+                "transactionId": "3e0c5f6d-0dfc-462d-8a63-31b7a20d0c6b",
+                "type": "pubkeyhash",
+                "updatedAt": "2024-11-05T07:30:14.219077Z",
+                "xpubId": "4676a7d6-45f8-46b3-850b-68a9bb7642bc"
             }
         ],
         "outputs": [
@@ -122,6 +111,17 @@
         "sendAllTo": null,
         "sync": null
     },
+    "createdAt": "2024-11-05T07:30:14.219077Z",
+    "deletedAt": null,
+    "expiresAt": "2024-11-05T07:30:27.372912Z",
+    "finalTxId": "",
+    "hex": "c959fdb6-f438-4ef9-aef9-92a1852885ef",
+    "id": "36be741b-31c7-4aed-8840-5e5b2eafeb41",
+    "metadata": {
+        "receiver": "john.doe.test4@john.doe.test.4chain.space",
+        "sender": "john.doe.test4@john.doe.test.4chain.space"
+    },
     "status": "",
-    "finalTxId": ""
+    "updatedAt": "2024-11-05T07:30:14.219077Z",
+    "xpubId": "3f0a90d3-4f8b-45f6-81e4-9858fa47ecc0"
 }

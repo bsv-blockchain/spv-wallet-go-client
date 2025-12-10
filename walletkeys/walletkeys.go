@@ -3,9 +3,9 @@ package walletkeys
 import (
 	"fmt"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	bip39 "github.com/bitcoin-sv/go-sdk/compat/bip39"
-	chaincfg "github.com/bitcoin-sv/go-sdk/transaction/chaincfg"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	bip39 "github.com/bsv-blockchain/go-sdk/compat/bip39"
+	chaincfg "github.com/bsv-blockchain/go-sdk/transaction/chaincfg"
 )
 
 // DefaultEntropy defines the default entropy (bit size) used for cryptographic purposes.
@@ -30,6 +30,7 @@ func (k *Keys) XPub() string { return k.xPub }
 // used to generate the associated xPriv and XPub HD keys as strings.
 type KeysWithMnemonic struct {
 	Keys
+
 	mnemonic string
 }
 

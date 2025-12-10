@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
+import "github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 
 // UpdateXPubMetadata contains the parameters needed to update the metadata
 // associated with the current user's xpub.

@@ -6,11 +6,12 @@ import (
 	"fmt"
 	"net/url"
 
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/go-resty/resty/v2"
+
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 const (
@@ -22,8 +23,8 @@ const (
 type MerkleRootsRepository interface {
 	// GetLastMerkleRoot should return the Merkle root with the highest height from your memory, or undefined if empty.
 	GetLastMerkleRoot() string
-	// SaveMerkleRoots should store newly synced merkle roots into your storage;
-	// NOTE: items are sorted in ascending order by block height.
+	// SaveMerkleRoots should store newly synced merkle roots into your storage.
+	// Items are sorted in ascending order by block height.
 	SaveMerkleRoots(syncedMerkleRoots []models.MerkleRoot) error
 }
 

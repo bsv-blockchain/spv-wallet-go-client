@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	wallet "github.com/bitcoin-sv/spv-wallet-go-client"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples/exampleutil"
+	wallet "github.com/bsv-blockchain/spv-wallet-go-client"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples/exampleutil"
 )
 
 func main() {
@@ -22,5 +22,5 @@ func main() {
 		log.Fatalf("Failed to delete paymail: %v", err)
 	}
 
-	fmt.Printf("Paymail deleted: %s\n", examples.Paymail)
+	fmt.Printf("Paymail deleted: %s\n", examples.Paymail) //nolint: forbidigo // example output
 }

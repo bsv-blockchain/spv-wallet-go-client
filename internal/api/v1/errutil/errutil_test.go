@@ -6,9 +6,12 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/errutil"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/errutil"
 )
+
+var errServerError = errors.New(http.StatusText(http.StatusInternalServerError))
 
 func TestHTTPErrorFormatter_Format(t *testing.T) {
 	// given:
@@ -16,18 +19,17 @@ func TestHTTPErrorFormatter_Format(t *testing.T) {
 		API    = "Users API"
 		action = "retrieve users page"
 	)
-	wrappedErr := errors.New(http.StatusText(http.StatusInternalServerError))
-	expectedErr := fmt.Errorf("failed to send HTTP %s request to %s via %s: %w", http.MethodPost, action, API, wrappedErr)
+	expectedErr := fmt.Errorf("failed to send HTTP %s request to %s via %s: %w", http.MethodPost, action, API, errServerError)
 
 	formatter := errutil.HTTPErrorFormatter{
 		Action: action,
 		API:    API,
-		Err:    wrappedErr,
+		Err:    errServerError,
 	}
 
 	// when:
 	got := formatter.Format(http.MethodPost)
 
 	// then:
-	require.Equal(t, got, expectedErr)
+	require.Equal(t, expectedErr, got)
 }

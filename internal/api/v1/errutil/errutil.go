@@ -34,7 +34,7 @@ func (h HTTPErrorFormatter) FormatDeleteErr() error { return h.Format(http.Metho
 
 // NewHTTPErrorFormatter creates a new instance of HTTPErrorFormatter.
 // It eliminates redundancy and ensures consistency across the codebase.
-func NewHTTPErrorFormatter(api string, action string, err error) *HTTPErrorFormatter {
+func NewHTTPErrorFormatter(api, action string, err error) *HTTPErrorFormatter {
 	return &HTTPErrorFormatter{
 		API:    api,
 		Action: action,

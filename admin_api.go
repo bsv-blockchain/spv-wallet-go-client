@@ -2,32 +2,36 @@ package spvwallet
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/accesskeys"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/contacts"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/invitations"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/paymails"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/stats"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/status"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/transactions"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/utxos"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/webhooks"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/xpubs"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/configs"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/errutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/auth"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/constants"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/restyutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/notifications"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/accesskeys"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/contacts"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/invitations"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/paymails"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/stats"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/status"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/transactions"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/utxos"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/webhooks"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/xpubs"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/configs"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/errutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/auth"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/constants"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/restyutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/notifications"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
+
+var errHTTPClientNil = errors.New("failed to initialize HTTP client - nil value")
 
 // AdminAPI provides a simplified interface for interacting with admin-related APIs.
 // It abstracts the complexities of making HTTP requests and handling responses,
@@ -400,8 +404,7 @@ func (a *AdminAPI) Status(ctx context.Context) (bool, error) {
 // NewAdminAPIWithXPriv initializes a new AdminAPI instance using an extended private key (xPriv).
 // This function configures the API client with the provided configuration and uses the xPriv key for authentication.
 // If any step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewAdminAPIWithXPriv(cfg config.Config, xPriv string) (*AdminAPI, error) {
 	authenticator, err := auth.NewXprivAuthenticator(xPriv)
 	if err != nil {
@@ -414,8 +417,7 @@ func NewAdminAPIWithXPriv(cfg config.Config, xPriv string) (*AdminAPI, error) {
 // NewAdminAPIWithXPub initializes a new AdminAPI instance using an extended public key (xPub).
 // This function configures the API client with the provided configuration and uses the xPub key for authentication.
 // If any configuration or initialization step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will not be signed.
+// Requests made with this instance will not be signed.
 // For enhanced security, it is strongly recommended to use `NewAdminAPIWithXPriv` instead.
 func NewAdminAPIWithXPub(cfg config.Config, xPub string) (*AdminAPI, error) {
 	authenticator, err := auth.NewXpubOnlyAuthenticator(xPub)
@@ -434,7 +436,7 @@ func initAdminAPI(cfg config.Config, auth authenticator) (*AdminAPI, error) {
 
 	httpClient := restyutil.NewHTTPClient(cfg, auth)
 	if httpClient == nil {
-		return nil, fmt.Errorf("failed to initialize HTTP client - nil value")
+		return nil, errHTTPClientNil
 	}
 
 	return &AdminAPI{

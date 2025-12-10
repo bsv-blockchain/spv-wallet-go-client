@@ -5,12 +5,13 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/stats/statstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/stats/statstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 const statsURL = "/v1/admin/stats"
@@ -49,7 +50,7 @@ func TestStatsAPI_Stats(t *testing.T) {
 			// then:
 			got, err := wallet.Stats(context.Background())
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

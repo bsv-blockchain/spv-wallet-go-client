@@ -6,27 +6,33 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/configs"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/errutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/accesskeys"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/contacts"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/invitations"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/merkleroots"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/paymails"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/totp"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/transactions"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/utxos"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/xpubs"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/auth"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/constants"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/restyutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/go-resty/resty/v2"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/configs"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/errutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/accesskeys"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/contacts"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/invitations"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/merkleroots"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/paymails"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/totp"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/transactions"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/utxos"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/xpubs"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/auth"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/constants"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/restyutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
+)
+
+var (
+	errTotpClientNotInitialized = errors.New("totp client not initialized - xPriv authentication required")
+	errUserHTTPClientNil        = errors.New("failed to initialize HTTP client - nil value")
 )
 
 // UserAPI provides methods for interacting with user-related APIs.
@@ -49,7 +55,7 @@ type UserAPI struct {
 	transactionsAPI *transactions.API
 	utxosAPI        *utxos.API
 	paymailsAPI     *paymails.API
-	totpAPI         *totp.API //only available when using xPriv
+	totpAPI         *totp.API // only available when using xPriv
 }
 
 // Contacts retrieves a paginated list of user contacts from the user contacts API.
@@ -386,7 +392,7 @@ func (u *UserAPI) SyncMerkleRoots(ctx context.Context, repo merkleroots.MerkleRo
 // GenerateTotpForContact generates a TOTP code for the specified contact.
 func (u *UserAPI) GenerateTotpForContact(contact *models.Contact, period, digits uint) (string, error) {
 	if u.totpAPI == nil {
-		return "", errors.New("totp client not initialized - xPriv authentication required")
+		return "", errTotpClientNotInitialized
 	}
 
 	totp, err := u.totpAPI.GenerateTotpForContact(contact, period, digits)
@@ -400,7 +406,7 @@ func (u *UserAPI) GenerateTotpForContact(contact *models.Contact, period, digits
 // ValidateTotpForContact validates a TOTP code for the specified contact.
 func (u *UserAPI) ValidateTotpForContact(generatorContact *models.Contact, passcode, validatorPaymail string, period, digits uint) error {
 	if u.totpAPI == nil {
-		return errors.New("totp client not initialized - xPriv authentication required")
+		return errTotpClientNotInitialized
 	}
 
 	if err := u.totpAPI.ValidateTotpForContact(generatorContact, passcode, validatorPaymail, period, digits); err != nil {
@@ -431,8 +437,7 @@ func (u *UserAPI) Paymails(ctx context.Context, opts ...queries.QueryOption[filt
 // NewUserAPIWithXPub initializes a new UserAPI instance using an extended public key (xPub).
 // This function configures the API client with the provided configuration and uses the xPub key for authentication.
 // If any configuration or initialization step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will not be signed.
+// Requests made with this instance will not be signed.
 // For enhanced security, it is strongly recommended to use `NewUserAPIWithXPriv` or `NewUserAPIWithAccessKey` instead.
 func NewUserAPIWithXPub(cfg config.Config, xPub string) (*UserAPI, error) {
 	authenticator, err := auth.NewXpubOnlyAuthenticator(xPub)
@@ -446,8 +451,7 @@ func NewUserAPIWithXPub(cfg config.Config, xPub string) (*UserAPI, error) {
 // NewUserAPIWithXPriv initializes a new UserAPI instance using an extended private key (xPriv).
 // This function configures the API client with the provided configuration and uses the xPriv key for authentication.
 // If any step fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewUserAPIWithXPriv(cfg config.Config, xPriv string) (*UserAPI, error) {
 	authenticator, err := auth.NewXprivAuthenticator(xPriv)
 	if err != nil {
@@ -465,8 +469,7 @@ func NewUserAPIWithXPriv(cfg config.Config, xPriv string) (*UserAPI, error) {
 // NewUserAPIWithAccessKey initializes a new UserAPI instance using an access key.
 // This function configures the API client and converts the provided access key from either hex or WIF format into a private key.
 // This private key is used for authentication. If any step in the process fails, an appropriate error is returned.
-//
-// Note: Requests made with this instance will be securely signed.
+// Requests made with this instance will be securely signed.
 func NewUserAPIWithAccessKey(cfg config.Config, accessKey string) (*UserAPI, error) {
 	authenticator, err := auth.NewAccessKeyAuthenticator(accessKey)
 	if err != nil {
@@ -519,7 +522,7 @@ func initUserAPI(cfg config.Config, auth authenticator) (*UserAPI, error) {
 
 	httpClient := restyutil.NewHTTPClient(cfg, auth)
 	if httpClient == nil {
-		return nil, fmt.Errorf("failed to initialize HTTP client - nil value")
+		return nil, errUserHTTPClientNil
 	}
 
 	transactionsAPI, err := transactions.NewAPI(url, httpClient)

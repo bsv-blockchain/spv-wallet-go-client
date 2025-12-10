@@ -6,15 +6,16 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/admin/contacts/contactstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/admin/contacts/contactstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 const (
@@ -70,7 +71,7 @@ func TestContactsAPI_CreateContact(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -127,7 +128,7 @@ func TestContactsAPI_Contacts(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }
@@ -213,7 +214,7 @@ func TestContactsAPI_ContactUpdate(t *testing.T) {
 
 			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
-			require.EqualValues(t, tc.expectedResponse, got)
+			require.Equal(t, tc.expectedResponse, got)
 		})
 	}
 }

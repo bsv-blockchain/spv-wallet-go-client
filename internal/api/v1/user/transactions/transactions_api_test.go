@@ -6,16 +6,17 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/user/transactions/transactionstest"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/user/transactions/transactionstest"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 const (
@@ -45,7 +46,7 @@ func TestTransactionsAPI_SendToRecipients(t *testing.T) {
 		})
 
 		// then:
-		require.ErrorIs(t, err, nil)
+		require.NoError(t, err)
 		require.Equal(t, transactionstest.ExpectedSendToRecipientsTransaction(t), result)
 	})
 
@@ -137,13 +138,13 @@ func TestTransactionsAPI_FinalizeTransaction(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			//given:
+			// given:
 			wallet, _ := testutils.GivenSPVUserAPI(t)
 
-			//when:
+			// when:
 			hex, err := wallet.FinalizeTransaction(tc.draft)
 
-			//then:
+			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
 			require.Equal(t, tc.expectedHex, hex)
 		})

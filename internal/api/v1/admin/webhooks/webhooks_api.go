@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/notifications"
 	"github.com/go-resty/resty/v2"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/notifications"
 )
 
 const (
@@ -54,7 +55,6 @@ func (a *API) AdminGetAllWebhooks(ctx context.Context) ([]*notifications.Webhook
 		SetContext(ctx).
 		SetResult(&webhooks).
 		Get(a.url.String())
-
 	if err != nil {
 		return nil, fmt.Errorf("HTTP request failure: %w", err)
 	}

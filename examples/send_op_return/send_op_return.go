@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"log"
 
-	wallet "github.com/bitcoin-sv/spv-wallet-go-client"
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples/exampleutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	wallet "github.com/bsv-blockchain/spv-wallet-go-client"
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples/exampleutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 )
 
 func main() {
@@ -39,7 +40,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to finalize draft transaction: %v", err)
 	}
-	fmt.Printf("Finalized draft transaction hex: %s\n", finalized)
+	fmt.Printf("Finalized draft transaction hex: %s\n", finalized) //nolint: forbidigo // example output
 
 	transaction, err := usersAPI.RecordTransaction(ctx, &commands.RecordTransaction{
 		Hex:         finalized,

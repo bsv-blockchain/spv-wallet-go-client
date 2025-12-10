@@ -8,7 +8,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
 )
 
 // NewDefaultConfig returns a new instance of the default example configuration.
@@ -21,17 +21,17 @@ func NewDefaultConfig() config.Config {
 // of `~` characters, for better visual presentation.
 func PrettyPrint(title string, JSON any) {
 	sep := strings.Repeat("~", 100)
-	fmt.Println(sep)
-	fmt.Println(title)
-	fmt.Println(sep)
+	fmt.Println(sep)   //nolint: forbidigo // example output
+	fmt.Println(title) //nolint: forbidigo // example output
+	fmt.Println(sep)   //nolint: forbidigo // example output
 
 	res, err := json.MarshalIndent(JSON, "", " ")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(res))
-	fmt.Println()
+	fmt.Println(string(res)) //nolint: forbidigo // example output
+	fmt.Println()            //nolint: forbidigo // example output
 }
 
 // CreateXpubID creates a hash from xpub which is equal to xpubID.

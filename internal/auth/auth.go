@@ -7,11 +7,12 @@ import (
 	"net/http"
 	"time"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	bsm "github.com/bitcoin-sv/go-sdk/compat/bsm"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
 	"github.com/bitcoin-sv/spv-wallet/models"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	bsm "github.com/bsv-blockchain/go-sdk/compat/bsm"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/cryptoutil"
 )
 
 func setSignature(header *http.Header, xPriv *bip32.ExtendedKey, bodyString string) error {
@@ -31,24 +32,24 @@ func createSignature(xPriv *bip32.ExtendedKey, bodyString string) (payload *mode
 	// Get the xPub
 	payload = new(models.AuthPayload)
 	if payload.XPub, err = bip32.GetExtendedPublicKey(xPriv); err != nil { // Should never error if key is correct
-		return
+		return payload, err
 	}
 
 	// auth_nonce is a random unique string to seed the signing message
 	// this can be checked server side to make sure the request is not being replayed
 	if payload.AuthNonce, err = cryptoutil.RandomHex(32); err != nil { // Should never error if key is correct
-		return
+		return payload, err
 	}
 
 	// Derive the address for signing
 	var key *bip32.ExtendedKey
 	if key, err = cryptoutil.DeriveChildKeyFromHex(xPriv, payload.AuthNonce); err != nil {
-		return
+		return payload, err
 	}
 
 	var privateKey *ec.PrivateKey
 	if privateKey, err = bip32.GetPrivateKeyFromHDKey(key); err != nil {
-		return // Should never error if key is correct
+		return payload, err // Should never error if key is correct
 	}
 	return createSignatureCommon(payload, bodyString, privateKey)
 }
@@ -88,7 +89,7 @@ func setSignatureHeaders(header *http.Header, authData *models.AuthPayload) {
 func createSignatureAccessKey(privateKeyHex, bodyString string) (payload *models.AuthPayload, err error) {
 	privateKey, err := ec.PrivateKeyFromHex(privateKeyHex)
 	if err != nil {
-		return
+		return payload, err
 	}
 
 	publicKey := privateKey.PubKey()

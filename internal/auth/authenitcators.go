@@ -6,14 +6,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	ec "github.com/bitcoin-sv/go-sdk/primitives/ec"
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet/models"
-	"github.com/go-resty/resty/v2"
 	"io"
 	"net/http"
+
+	"github.com/bitcoin-sv/spv-wallet/models"
+	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
+	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
+	"github.com/go-resty/resty/v2"
+
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
+
+var errPrivateKeyNil = errors.New("failed to parse private key: key generation resulted in nil")
 
 type XpubAuthenticator struct {
 	hdKey *bip32.ExtendedKey
@@ -131,7 +135,7 @@ func NewAccessKeyAuthenticator(accessKeyHex string) (*AccessKeyAuthenticator, er
 
 	privKey, pubKey := ec.PrivateKeyFromBytes(privKeyBytes)
 	if privKey == nil || pubKey == nil {
-		return nil, errors.New("failed to parse private key: key generation resulted in nil")
+		return nil, errPrivateKeyNil
 	}
 
 	return &AccessKeyAuthenticator{

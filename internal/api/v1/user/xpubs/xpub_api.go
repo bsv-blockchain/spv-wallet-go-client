@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/go-resty/resty/v2"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
 )
 
 const (
@@ -53,5 +54,4 @@ func NewAPI(url *url.URL, httpClient *resty.Client) *API {
 		url:        url.JoinPath(route),
 		httpClient: httpClient,
 	}
-
 }

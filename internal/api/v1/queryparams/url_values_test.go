@@ -5,10 +5,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 func TestURLValues_AddPair(t *testing.T) {
@@ -40,7 +41,7 @@ func TestURLValues_AddPair(t *testing.T) {
 	})
 
 	// then:
-	require.EqualValues(t, expectedValues, params.Values)
+	require.Equal(t, expectedValues, params.Values)
 }
 
 func TestURLValues_ParseToMap(t *testing.T) {
@@ -74,5 +75,5 @@ func TestURLValues_ParseToMap(t *testing.T) {
 	got := params.ParseToMap()
 
 	// then:
-	require.EqualValues(t, expectedValues, got)
+	require.Equal(t, expectedValues, got)
 }

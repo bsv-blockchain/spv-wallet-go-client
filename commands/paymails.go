@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
+import "github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 
 // CreatePaymail defines the parameters required to create a new paymail address,
 // including associated metadata such as the public name and avatar.

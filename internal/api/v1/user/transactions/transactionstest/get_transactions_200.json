@@ -1,9 +1,15 @@
 {
     "content": [
         {
+            "blockHash": "47758f612c6bf5b454bcd642fe8031f6",
+            "blockHeight": 512,
             "createdAt": "2024-10-07T14:03:26.736816Z",
-            "updatedAt": "2024-10-07T14:03:26.736816Z",
             "deletedAt": null,
+            "direction": "incoming",
+            "draftId": "",
+            "fee": 1,
+            "hex": "283b1c6deb6d6263b3cec7a4701d46d3",
+            "id": "2c250e21-c33a-41e3-a4e3-77c68b03244e",
             "metadata": {
                 "domain": "john.doe.test.4chain.space",
                 "example_key1": "example_key10_val",
@@ -16,27 +22,27 @@
                 "reference_id": "1c2dcc61-f48f-44f2-aba2-9a759a514d49",
                 "user_agent": "node-fetch"
             },
-            "id": "2c250e21-c33a-41e3-a4e3-77c68b03244e",
-            "hex": "283b1c6deb6d6263b3cec7a4701d46d3",
+            "numberOfInputs": 2,
+            "numberOfOutputs": 3,
+            "outputValue": 100,
+            "status": "MINED",
+            "totalValue": 311,
+            "updatedAt": "2024-10-07T14:03:26.736816Z",
             "xpubInIds": null,
             "xpubOutIds": [
                 "4c9a0a0d-ea4f-4f03-b740-84438b3d210d"
-            ],
-            "blockHash": "47758f612c6bf5b454bcd642fe8031f6",
-            "blockHeight": 512,
-            "fee": 1,
-            "numberOfInputs": 2,
-            "numberOfOutputs": 3,
-            "draftId": "",
-            "totalValue": 311,
-            "outputValue": 100,
-            "status": "MINED",
-            "direction": "incoming"
+            ]
         },
         {
+            "blockHash": "56659f622c6bf5b554bcd742fe8132f9",
+            "blockHeight": 1024,
             "createdAt": "2024-10-07T14:03:26.736816Z",
-            "updatedAt": "2024-10-07T14:03:26.736816Z",
             "deletedAt": null,
+            "direction": "incoming",
+            "draftId": "",
+            "fee": 1,
+            "hex": "283b1c7deb7d7773b3cec7a8801d47d2",
+            "id": "1c110e11-c23a-51e5-a7e7-99c12b01233e",
             "metadata": {
                 "domain": "jane.doe.test.4chain.space",
                 "example_key101": "example_key101_val",
@@ -49,22 +55,16 @@
                 "reference_id": "2c6dcc71-f42f-54f2-ada1-1c658a515d50",
                 "user_agent": "node-fetch"
             },
-            "id": "1c110e11-c23a-51e5-a7e7-99c12b01233e",
-            "hex": "283b1c7deb7d7773b3cec7a8801d47d2",
+            "numberOfInputs": 2,
+            "numberOfOutputs": 3,
+            "outputValue": 200,
+            "status": "MINED",
+            "totalValue": 500,
+            "updatedAt": "2024-10-07T14:03:26.736816Z",
             "xpubInIds": null,
             "xpubOutIds": [
                 "2c8a1a1d-ea5f-5f04-b890-92418b2d411d"
-            ],
-            "blockHash": "56659f622c6bf5b554bcd742fe8132f9",
-            "blockHeight": 1024,
-            "fee": 1,
-            "numberOfInputs": 2,
-            "numberOfOutputs": 3,
-            "draftId": "",
-            "totalValue": 500,
-            "outputValue": 200,
-            "status": "MINED",
-            "direction": "incoming"
+            ]
         }
     ],
     "page": {

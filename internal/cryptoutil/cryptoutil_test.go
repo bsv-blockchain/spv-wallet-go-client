@@ -4,11 +4,11 @@ import (
 	"math"
 	"testing"
 
-	bip32 "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	compat "github.com/bitcoin-sv/go-sdk/compat/bip32"
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
+	compat "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/cryptoutil"
 )
 
 func TestHash(t *testing.T) {
@@ -50,7 +50,7 @@ func TestDeriveChildKeyFromHex(t *testing.T) {
 		expectedXPub  = "xpub6Mm5S4rumTw93CAg8cJJhw11WzrZHxsmHLxPCiBCKnZqdUQNEHJZ7DaGMKucRzXPHtoS2ZqsVSRjxVbibEvwmR2wXkZDd8RrTftmm42cRsf"
 	)
 
-	generateHDKey := func(s string) *bip32.ExtendedKey {
+	generateHDKey := func(s string) *compat.ExtendedKey {
 		k, err := compat.GenerateHDKeyFromString(s)
 		if err != nil {
 			t.Fatal(err)

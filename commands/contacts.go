@@ -9,8 +9,7 @@ type UpsertContact struct {
 }
 
 // UpdateContact represents the arguments defined for updating a user's contact information.
-//
-// Note: The `ID` field is not included in the request body sent to the SPV Wallet API.
+// The `ID` field is not included in the request body sent to the SPV Wallet API.
 // Instead, it is used as part of the endpoint path (e.g., /api/v1/admin/contacts/{ID}).
 type UpdateContact struct {
 	ID       string         `json:"-"`        // Unique identifier of the contact to be updated.
@@ -27,7 +26,7 @@ type ConfirmContacts struct {
 // CreateContact holds the necessary arguments for creating a contact in the SPV Wallet system.
 // It includes the paymail of the creator (the user initiating the contact addition),
 // the full name of the contact, and any associated metadata.
-// Note: The `Paymail` field is not included in the request body sent to the SPV Wallet API.
+// The `Paymail` field is not included in the request body sent to the SPV Wallet API.
 // Instead, it is used as part of the endpoint path (e.g., /api/v1/admin/contacts/{paymail}).
 type CreateContact struct {
 	// CreatorPaymail is the paymail address of the user who is adding the contact.
