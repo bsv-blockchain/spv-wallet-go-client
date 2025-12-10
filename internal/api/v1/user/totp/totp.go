@@ -143,7 +143,7 @@ func getTotpOpts(period, digits uint) *totp.ValidateOpts {
 
 	return &totp.ValidateOpts{
 		Period: period,
-		Digits: otp.Digits(digits), //nolint:G115 // digits is a small uint (typically 2-8), no overflow risk
+		Digits: otp.Digits(digits), //#nosec G115 -- digits is a small uint (typically 2-8), no overflow risk
 	}
 }
 
