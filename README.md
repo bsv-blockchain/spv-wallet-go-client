@@ -2,7 +2,7 @@
 
 # 🧰&nbsp;&nbsp;spv-wallet-go-client
 
-**Lightweight Go client library for interacting with the SPV Wallet API.**
+**Lightweight Go client library for interacting with the SPV Wallet**
 
 <br/>
 
