@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"time"
 
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 // Config holds configuration settings for establishing a connection and handling

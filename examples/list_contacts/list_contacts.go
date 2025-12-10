@@ -4,11 +4,12 @@ import (
 	"context"
 	"log"
 
-	wallet "github.com/bitcoin-sv/spv-wallet-go-client"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples"
-	"github.com/bitcoin-sv/spv-wallet-go-client/examples/exampleutil"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
+
+	wallet "github.com/bsv-blockchain/spv-wallet-go-client"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples"
+	"github.com/bsv-blockchain/spv-wallet-go-client/examples/exampleutil"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 func main() {

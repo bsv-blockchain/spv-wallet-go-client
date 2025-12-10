@@ -9,9 +9,10 @@ import (
 	"math"
 	"strconv"
 
-	goclienterrors "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
+	goclienterrors "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 const (

@@ -7,10 +7,11 @@ import (
 	"testing"
 	"time"
 
-	spvwallet "github.com/bitcoin-sv/spv-wallet-go-client"
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
 	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	"github.com/jarcoal/httpmock"
+
+	spvwallet "github.com/bsv-blockchain/spv-wallet-go-client"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
 )
 
 const TestAPIAddr = "http://localhost:3003"

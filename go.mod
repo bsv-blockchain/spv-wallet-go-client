@@ -1,4 +1,4 @@
-module github.com/bitcoin-sv/spv-wallet-go-client
+module github.com/bsv-blockchain/spv-wallet-go-client
 
 go 1.24.3
 

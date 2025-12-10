@@ -83,7 +83,7 @@ import (
  "log"
  "strings"
 
- wallet "github.com/bitcoin-sv/spv-wallet-go-client"
+ wallet "github.com/bsv-blockchain/spv-wallet-go-client"
 )
 
 func main() {

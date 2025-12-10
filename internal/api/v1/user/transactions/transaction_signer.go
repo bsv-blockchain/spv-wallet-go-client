@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 
-	walleterrors "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
@@ -12,6 +11,8 @@ import (
 	trx "github.com/bsv-blockchain/go-sdk/transaction"
 	sighash "github.com/bsv-blockchain/go-sdk/transaction/sighash"
 	"github.com/bsv-blockchain/go-sdk/transaction/template/p2pkh"
+
+	walleterrors "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 type noopTransactionSigner struct{}

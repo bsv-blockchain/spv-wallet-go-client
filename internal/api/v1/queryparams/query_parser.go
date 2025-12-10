@@ -5,9 +5,10 @@ import (
 	"reflect"
 	"strings"
 
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/queries"
 	"github.com/bitcoin-sv/spv-wallet/models/filter"
+
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/queries"
 )
 
 type QueryParser[F queries.QueryFilters] struct {

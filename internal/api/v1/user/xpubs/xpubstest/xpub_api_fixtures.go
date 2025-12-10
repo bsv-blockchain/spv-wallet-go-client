@@ -3,8 +3,9 @@ package xpubstest
 import (
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 func ExpectedUpdatedXPubMetadata(t *testing.T) *response.Xpub {

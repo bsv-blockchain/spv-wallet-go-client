@@ -8,7 +8,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
 )
 
 // NewDefaultConfig returns a new instance of the default example configuration.

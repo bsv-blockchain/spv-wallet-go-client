@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
 )
 
 type user struct {

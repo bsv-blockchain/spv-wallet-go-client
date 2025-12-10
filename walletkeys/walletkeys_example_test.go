@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/walletkeys"
+	"github.com/bsv-blockchain/spv-wallet-go-client/walletkeys"
 )
 
 func ExampleRandomKeysWithMnemonic() {

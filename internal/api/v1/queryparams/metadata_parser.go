@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"reflect"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 type Metadata map[string]any

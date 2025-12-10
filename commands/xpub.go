@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/queryparams"
+import "github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 
 // CreateUserXpub contains the parameters required to register a user's XPub.
 type CreateUserXpub struct {

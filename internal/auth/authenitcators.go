@@ -9,11 +9,12 @@ import (
 	"io"
 	"net/http"
 
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	bip32 "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
 	"github.com/go-resty/resty/v2"
+
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 var errPrivateKeyNil = errors.New("failed to parse private key: key generation resulted in nil")

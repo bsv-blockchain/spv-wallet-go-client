@@ -4,10 +4,11 @@ import (
 	"math"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/errors"
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/cryptoutil"
 	compat "github.com/bsv-blockchain/go-sdk/compat/bip32"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/cryptoutil"
 )
 
 func TestHash(t *testing.T) {

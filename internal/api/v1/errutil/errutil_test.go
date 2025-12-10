@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/api/v1/errutil"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/errutil"
 )
 
 var errServerError = errors.New(http.StatusText(http.StatusInternalServerError))

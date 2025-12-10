@@ -3,10 +3,11 @@ package restyutil
 import (
 	"fmt"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/config"
-	goclienterr "github.com/bitcoin-sv/spv-wallet-go-client/errors"
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/go-resty/resty/v2"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/config"
+	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )
 
 type Authenticator interface {

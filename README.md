@@ -2,15 +2,15 @@
 
 # SPV Wallet: Go Client
 
-[![Release](https://img.shields.io/github/release-pre/bitcoin-sv/spv-wallet-go-client.svg?logo=github&style=flat&v=2)](https://github.com/bitcoin-sv/spv-wallet-go-client/releases)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/bitcoin-sv/spv-wallet-go-client/run-tests.yml?branch=main&v=2)](https://github.com/bitcoin-sv/spv-wallet-go-client/actions)
-[![Report](https://goreportcard.com/badge/github.com/bitcoin-sv/spv-wallet-go-client?style=flat&v=2)](https://goreportcard.com/report/github.com/bitcoin-sv/spv-wallet-go-client)
-[![codecov](https://codecov.io/gh/bitcoin-sv/spv-wallet-go-client/branch/main/graph/badge.svg?v=2)](https://codecov.io/gh/bitcoin-sv/spv-wallet-go-client)
-[![Mergify Status](https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/bitcoin-sv/spv-wallet-go-client&style=flat&v=2)](https://mergify.io)
+[![Release](https://img.shields.io/github/release-pre/bsv-blockchain/spv-wallet-go-client.svg?logo=github&style=flat&v=2)](https://github.com/bsv-blockchain/spv-wallet-go-client/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/bsv-blockchain/spv-wallet-go-client/run-tests.yml?branch=main&v=2)](https://github.com/bsv-blockchain/spv-wallet-go-client/actions)
+[![Report](https://goreportcard.com/badge/github.com/bsv-blockchain/spv-wallet-go-client?style=flat&v=2)](https://goreportcard.com/report/github.com/bsv-blockchain/spv-wallet-go-client)
+[![codecov](https://codecov.io/gh/bsv-blockchain/spv-wallet-go-client/branch/main/graph/badge.svg?v=2)](https://codecov.io/gh/bsv-blockchain/spv-wallet-go-client)
+[![Mergify Status](https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/bsv-blockchain/spv-wallet-go-client&style=flat&v=2)](https://mergify.io)
 <br>
 
-[![Go](https://img.shields.io/github/go-mod/go-version/bitcoin-sv/spv-wallet-go-client?v=2)](https://golang.org/)
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&v=2)](https://gitpod.io/#https://github.com/bitcoin-sv/spv-wallet-go-client)
+[![Go](https://img.shields.io/github/go-mod/go-version/bsv-blockchain/spv-wallet-go-client?v=2)](https://golang.org/)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&v=2)](https://gitpod.io/#https://github.com/bsv-blockchain/spv-wallet-go-client)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat&v=2)](https://github.com/RichardLitt/standard-readme)
 [![Makefile Included](https://img.shields.io/badge/Makefile-Supported%20-brightgreen?=flat&logo=probot&v=2)](Makefile)
 
@@ -30,7 +30,7 @@
 
 Instalation:
 ```shell script
-go get -u github.com/bitcoin-sv/spv-wallet-go-client
+go get -u github.com/bsv-blockchain/spv-wallet-go-client
 ```
 
 ## Requirements
@@ -217,11 +217,11 @@ The implementation enforces separation of concerns by isolating admin and non-ad
 
 ## Documentation
 
-View the generated [documentation](https://pkg.go.dev/github.com/bitcoin-sv/spv-wallet-go-client)
+View the generated [documentation](https://pkg.go.dev/github.com/bsv-blockchain/spv-wallet-go-client)
 
 For in-depth information and guidance, please refer to the [SPV Wallet Documentation](https://docs.bsvblockchain.org/network-topology/applications/spv-wallet).
 
-[![GoDoc](https://godoc.org/github.com/bitcoin-sv/spv-wallet-go-client?status.svg&style=flat&v=2)](https://pkg.go.dev/github.com/bitcoin-sv/spv-wallet-go-client)
+[![GoDoc](https://godoc.org/github.com/bsv-blockchain/spv-wallet-go-client?status.svg&style=flat&v=2)](https://pkg.go.dev/github.com/bsv-blockchain/spv-wallet-go-client)
 
 # Testing and Development Standards
 
@@ -257,4 +257,4 @@ View the [contributing guidelines](.github/CODE_STANDARDS.md#3-contributing) and
 
 ## License
 
-[![License](https://img.shields.io/github/license/bitcoin-sv/spv-wallet-go-client.svg?style=flat&v=2)](LICENSE)
+[![License](https://img.shields.io/github/license/bsv-blockchain/spv-wallet-go-client.svg?style=flat&v=2)](LICENSE)

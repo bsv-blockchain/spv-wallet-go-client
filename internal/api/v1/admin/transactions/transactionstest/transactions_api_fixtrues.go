@@ -3,8 +3,9 @@ package transactionstest
 import (
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet-go-client/internal/testutils"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
+
+	"github.com/bsv-blockchain/spv-wallet-go-client/internal/testutils"
 )
 
 func ExpectedTransaction(t *testing.T) *response.Transaction {
