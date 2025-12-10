@@ -53,5 +53,4 @@ func NewAPI(url *url.URL, httpClient *resty.Client) *API {
 		url:        url.JoinPath(route),
 		httpClient: httpClient,
 	}
-
 }

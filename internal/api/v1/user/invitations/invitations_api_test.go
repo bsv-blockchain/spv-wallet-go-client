@@ -19,7 +19,6 @@ const (
 )
 
 func TestInvitationsAPI_AcceptInvitation(t *testing.T) {
-
 	tests := map[string]struct {
 		responder   httpmock.Responder
 		expectedErr error
@@ -58,7 +57,6 @@ func TestInvitationsAPI_AcceptInvitation(t *testing.T) {
 }
 
 func TestInvitationsAPI_RejectInvitation(t *testing.T) {
-
 	tests := map[string]struct {
 		responder   httpmock.Responder
 		expectedErr error

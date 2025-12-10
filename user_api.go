@@ -49,7 +49,7 @@ type UserAPI struct {
 	transactionsAPI *transactions.API
 	utxosAPI        *utxos.API
 	paymailsAPI     *paymails.API
-	totpAPI         *totp.API //only available when using xPriv
+	totpAPI         *totp.API // only available when using xPriv
 }
 
 // Contacts retrieves a paginated list of user contacts from the user contacts API.

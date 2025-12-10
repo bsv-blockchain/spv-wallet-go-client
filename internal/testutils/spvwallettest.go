@@ -66,7 +66,7 @@ func MockPKI(t *testing.T, xpub string) string {
 	t.Helper()
 	xPub, _ := bip32.NewKeyFromString(xpub)
 	var err error
-	for i := 0; i < 3; i++ { //magicNumberOfInheritance is 3 -> 2+1; 2: because of the way spv-wallet stores xpubs in db; 1: to make a PKI
+	for i := 0; i < 3; i++ { // magicNumberOfInheritance is 3 -> 2+1; 2: because of the way spv-wallet stores xpubs in db; 1: to make a PKI
 		xPub, err = xPub.Child(0)
 		if err != nil {
 			t.Fatalf("test helper - retrieve a derived child extended key at index 0 failed: %s", err)

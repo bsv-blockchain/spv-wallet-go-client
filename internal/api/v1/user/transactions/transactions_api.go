@@ -168,7 +168,8 @@ func NewAPIWithXPriv(URL *url.URL, httpClient *resty.Client, xPriv string) (*API
 	return &API{
 			url:               URL.JoinPath(route),
 			httpClient:        httpClient,
-			transactionSigner: transactionSigner},
+			transactionSigner: transactionSigner,
+		},
 		nil
 }
 

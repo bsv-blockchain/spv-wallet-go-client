@@ -14,8 +14,7 @@ import (
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 )
 
-type noopTransactionSigner struct {
-}
+type noopTransactionSigner struct{}
 
 func (*noopTransactionSigner) TransactionSignedHex(dt *response.DraftTransaction) (string, error) {
 	return "", nil

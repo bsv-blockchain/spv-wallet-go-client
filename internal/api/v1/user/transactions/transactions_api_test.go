@@ -137,13 +137,13 @@ func TestTransactionsAPI_FinalizeTransaction(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			//given:
+			// given:
 			wallet, _ := testutils.GivenSPVUserAPI(t)
 
-			//when:
+			// when:
 			hex, err := wallet.FinalizeTransaction(tc.draft)
 
-			//then:
+			// then:
 			require.ErrorIs(t, err, tc.expectedErr)
 			require.Equal(t, tc.expectedHex, hex)
 		})

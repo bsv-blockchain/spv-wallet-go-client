@@ -54,7 +54,6 @@ func (a *API) AdminGetAllWebhooks(ctx context.Context) ([]*notifications.Webhook
 		SetContext(ctx).
 		SetResult(&webhooks).
 		Get(a.url.String())
-
 	if err != nil {
 		return nil, fmt.Errorf("HTTP request failure: %w", err)
 	}

@@ -108,7 +108,8 @@ func TestQueryParser_Parse_AdminUtxosQuery(t *testing.T) {
 							},
 							UpdatedRange: &filter.TimeRange{
 								From: testutils.Ptr(time.Date(2021, 2, 1, 0, 0, 0, 0, time.UTC)),
-								To:   testutils.Ptr(time.Date(2021, 2, 2, 0, 0, 0, 0, time.UTC))},
+								To:   testutils.Ptr(time.Date(2021, 2, 2, 0, 0, 0, 0, time.UTC)),
+							},
 						},
 						SpendingTxID:  testutils.Ptr("7539366c-beb2-4405-8597-025bf2dc7cbd"),
 						DraftID:       testutils.Ptr("2453797c-4089-4078-8723-5ecb68e70bd7"),
@@ -375,7 +376,6 @@ func TestQueryParser_Parse_AdminPaymailsQuery(t *testing.T) {
 			query: &queries.Query[filter.AdminPaymailFilter]{
 				Filter: filter.AdminPaymailFilter{
 					PaymailFilter: filter.PaymailFilter{
-
 						ModelFilter: filter.ModelFilter{
 							IncludeDeleted: testutils.Ptr(true),
 							CreatedRange: &filter.TimeRange{

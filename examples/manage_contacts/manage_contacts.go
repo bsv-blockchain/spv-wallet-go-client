@@ -207,7 +207,7 @@ func generateTOTP(initiatorClient *wallet.UserAPI, counterparty user) (totp stri
 	return totp, nil
 }
 
-func validateTOTP(validatorClient *wallet.UserAPI, validatorPaymail string, generatingUserPaymail string, totp string) error {
+func validateTOTP(validatorClient *wallet.UserAPI, validatorPaymail, generatingUserPaymail, totp string) error {
 	// Contact counterparty gets the contact info
 	respCounterparty, err := validatorClient.ContactWithPaymail(ctx, generatingUserPaymail)
 	if err != nil {

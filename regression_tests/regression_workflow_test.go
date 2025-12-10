@@ -8,11 +8,10 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
 	"github.com/bitcoin-sv/spv-wallet/models/response"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	"github.com/bitcoin-sv/spv-wallet-go-client/commands"
 )
 
 const adminXPriv = "xprv9s21ZrQH143K3CbJXirfrtpLvhT3Vgusdo8coBritQ3rcS7Jy7sxWhatuxG5h2y1Cqj8FKmPp69536gmjYRpfga2MJdsGyBsnB12E19CESK"
@@ -22,6 +21,7 @@ const (
 	clientTwoURL         = "CLIENT_TWO_URL"
 	clientTwoLeaderXPriv = "CLIENT_TWO_LEADER_XPRIV"
 )
+
 const (
 	alias1 = "UserSLRegressionTest"
 	alias2 = "UserPGRegressionTest"
@@ -648,7 +648,6 @@ func TestRegressionWorkflow(t *testing.T) {
 }
 
 func initServers(t *testing.T) (*spvWalletServer, *spvWalletServer) {
-
 	spvWalletSL, err := initSPVWalletServer(alias1, &spvWalletServerConfig{
 		envURL:     lookupEnvOrDefault(t, clientOneURL, ""),
 		envXPriv:   lookupEnvOrDefault(t, clientOneLeaderXPriv, ""),

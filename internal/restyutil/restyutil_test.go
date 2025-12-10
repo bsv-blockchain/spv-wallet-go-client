@@ -58,7 +58,6 @@ func TestNewHTTPClient_OnAfterResponse(t *testing.T) {
 			// Assert errors
 			require.ErrorIs(t, err, tc.expectedError)
 			require.NotNil(t, resp)
-
 		})
 	}
 }

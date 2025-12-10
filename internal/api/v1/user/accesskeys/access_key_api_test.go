@@ -162,7 +162,6 @@ func TestAccessKeyAPI_AccessKeys(t *testing.T) {
 }
 
 func TestAccessKeyAPI_RevokeAccessKey(t *testing.T) {
-
 	tests := map[string]struct {
 		responder   httpmock.Responder
 		expectedErr error
