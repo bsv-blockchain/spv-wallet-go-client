@@ -2,6 +2,7 @@ package restyutil_test
 
 import (
 	"testing"
+	"time"
 
 	"github.com/bitcoin-sv/spv-wallet/models"
 	"github.com/go-resty/resty/v2"
@@ -67,7 +68,7 @@ func TestNewHTTPClient_OnAfterResponse(t *testing.T) {
 func setupMockHTTPClient(t *testing.T) *resty.Client {
 	cfg := config.Config{
 		Addr:      "http://mock-api",
-		Timeout:   5,
+		Timeout:   5 * time.Second,
 		Transport: httpmock.DefaultTransport,
 	}
 	client := restyutil.NewHTTPClient(cfg, &mockAuthenticator{})
