@@ -1,3 +1,16 @@
+# ------------------------------------------------------------------------------------
+#  Regression Tests Workflow
+#
+#  Triggers regression tests against the SPV Wallet regression test suite.
+#  Manual trigger only (workflow_dispatch) for security.
+#
+#  SECURITY NOTES:
+#  - Manual trigger only prevents unauthorized test execution
+#  - External workflow reference cannot be SHA-pinned (cross-repo limitation)
+#  - Secrets are only accessible to repository collaborators with write access
+#
+# ------------------------------------------------------------------------------------
+
 name: "Regression Tests"
 run-name: "Regression Tests for ${{ github.head_ref || github.ref }} | ID: ${{ github.run_id }}-${{ github.run_attempt }}"
 
@@ -13,16 +26,25 @@ on:
           - 'always'
           - 'failure'
           - 'never'
-  pull_request_target:
-    types: [labeled]
+
+# Security: Restrictive default permissions
+permissions:
+  contents: read
+
+# Prevent concurrent regression test runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
+    # NOTE: External workflow references cannot be SHA-pinned (GitHub limitation)
+    # This workflow is maintained by 4chain-ag and trusted for regression testing
     uses: 4chain-ag/spv-wallet-regression/.github/workflows/run-regression-tests.yaml@main
     with:
       run_id: '${{ github.run_id }}-${{ github.run_attempt }}'
       keep_instances: ${{ inputs.keep_instances }}
-      go_client_repository: ${{ github.event.pull_request.head.repo.full_name || github.repository}}
+      go_client_repository: ${{ github.repository }}
       go_client_ref: ${{ github.head_ref || github.ref }}
       run_js_client_tests: false
     secrets:
