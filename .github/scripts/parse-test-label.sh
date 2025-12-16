@@ -46,3 +46,41 @@ parse_test_label() {
     echo "$test_type"
   fi
 }
+
+# Copy CI artifact file with artifact directory prefix for unique naming
+# Usage: copy_ci_artifact "source_file" ["ci"|"fuzz"]
+# Example: copy_ci_artifact "/path/to/ci-artifacts/artifact-name/.mage-x/ci-results.jsonl" "ci"
+copy_ci_artifact() {
+  local file="$1"
+  local prefix="${2:-ci}"
+
+  # Validate input file exists
+  if [[ ! -f "$file" ]]; then
+    echo "⚠️ Warning: File not found: $file" >&2
+    return 1
+  fi
+
+  # Extract artifact directory name for unique naming
+  local parent_dir=$(dirname "$file")
+  local parent_basename=$(basename "$parent_dir")
+  local artifact_dir
+
+  # Detect which structure we have by checking parent directory
+  # Expected: *-artifacts/ARTIFACT_NAME/.mage-x/ci-results.jsonl
+  if [[ "$parent_basename" == ".mage-x" ]]; then
+    # Expected structure: use grandparent as artifact dir
+    artifact_dir=$(dirname "$parent_dir" | xargs basename)
+  else
+    # Fallback: parent is the artifact dir (not grandparent)
+    echo "  Warning: Unexpected artifact structure for: $file" >&2
+    artifact_dir="$parent_basename"
+  fi
+  local filename=$(basename "$file")
+  local dest="${prefix}-${artifact_dir}-${filename}"
+
+  echo "Copying $prefix results $file to ./$dest"
+  if ! cp "$file" "./$dest"; then
+    echo "⚠️ Warning: Failed to copy $file to $dest" >&2
+    return 1
+  fi
+}

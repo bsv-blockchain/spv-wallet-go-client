@@ -115,15 +115,29 @@ jobs:
           find ci-results/ -name "ci-results.jsonl" -o -name "*.jsonl" 2>/dev/null | head -20
 
           # Process each CI results file
-          # Note: Using find instead of compgen -G because ** glob requires shopt -s globstar
+          # Note: Using find for recursive directory traversal to locate all matching files
           if find ci-results/ -name "*.jsonl" 2>/dev/null | grep -q .; then
             echo "✅ Found CI results JSONL files"
 
-            for jsonl_file in $(find ci-results/ -name "*.jsonl" 2>/dev/null); do
-              # Extract artifact directory name (grandparent of JSONL file)
-              # Path: ci-results/ARTIFACT_NAME/.mage-x/ci-results.jsonl
+            while IFS= read -r -d '' jsonl_file; do
+              # Extract artifact directory name from JSONL file path
+              # Supported directory structures:
+              #   1. Expected: ci-results/ARTIFACT_NAME/.mage-x/ci-results.jsonl
+              #      → Use grandparent (skip .mage-x) to get ARTIFACT_NAME
+              #   2. Fallback: ci-results/ARTIFACT_NAME/ci-results.jsonl
+              #      → Use parent directory as ARTIFACT_NAME
               ARTIFACT_DIR=$(dirname "$(dirname "$jsonl_file")" | xargs basename)
               JSONL_NAME=$(basename "$jsonl_file")
+
+              # Detect which structure we have by checking parent directory
+              PARENT_DIR=$(basename "$(dirname "$jsonl_file")")
+              if [[ "$PARENT_DIR" != ".mage-x" ]]; then
+                echo "  Warning: Unexpected artifact structure for: $jsonl_file"
+                echo "  Expected: ci-results/ARTIFACT_NAME/.mage-x/ci-results.jsonl"
+                # Fallback: parent is the artifact dir (not grandparent)
+                ARTIFACT_DIR=$(basename "$(dirname "$jsonl_file")")
+              fi
+
               TEST_LABEL=$(parse_test_label "$ARTIFACT_DIR" "$JSONL_NAME")
 
               echo ""
@@ -193,12 +207,12 @@ jobs:
                   TOTAL_FAILURES=$((TOTAL_FAILURES + FAILURE_COUNT))
                 fi
               fi
-            done
+            done < <(find ci-results/ -name "*.jsonl" -print0 2>/dev/null)
           else
             echo "⚠️ No JSONL files found - checking for test-output.log files..."
 
             # Fallback: check test-output.log files for exit codes
-            for log_file in $(find ci-results/ -name "test-output.log" 2>/dev/null); do
+            while IFS= read -r -d '' log_file; do
               echo "📄 Checking: $log_file"
 
               # Look for FAIL indicators
@@ -208,7 +222,7 @@ jobs:
                 FAIL_COUNT=$(grep -c "^--- FAIL:" "$log_file" 2>/dev/null || echo "1")
                 TOTAL_FAILURES=$((TOTAL_FAILURES + FAIL_COUNT))
               fi
-            done
+            done < <(find ci-results/ -name "test-output.log" -print0 2>/dev/null)
           fi
 
           # Final validation result
@@ -252,7 +266,7 @@ jobs:
           TOTAL_UNIQUE=0
           TOTAL_TESTS=0
 
-          for jsonl_file in $(find ci-results/ -name "*.jsonl" 2>/dev/null); do
+          while IFS= read -r -d '' jsonl_file; do
             SUMMARY=$(grep '"type":"summary"' "$jsonl_file" 2>/dev/null | head -1 || echo "")
             if [[ -n "$SUMMARY" ]]; then
               PASSED=$(echo "$SUMMARY" | jq -r '.summary.passed // 0')
@@ -266,7 +280,7 @@ jobs:
               TOTAL_UNIQUE=$((TOTAL_UNIQUE + UNIQUE))
               TOTAL_TESTS=$((TOTAL_TESTS + TOTAL))
             fi
-          done
+          done < <(find ci-results/ -name "*.jsonl" -print0 2>/dev/null)
 
           echo "- **Unique Tests**: $TOTAL_UNIQUE" >> $GITHUB_STEP_SUMMARY
           echo "- **Test Runs**: $TOTAL_TESTS" >> $GITHUB_STEP_SUMMARY
@@ -286,11 +300,23 @@ jobs:
             echo "### Test Matrix Results" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
 
-            for jsonl_file in $(find ci-results/ -name "*.jsonl" 2>/dev/null); do
-              # Extract artifact directory name (grandparent of JSONL file)
-              # Path: ci-results/ARTIFACT_NAME/.mage-x/ci-results.jsonl
+            while IFS= read -r -d '' jsonl_file; do
+              # Extract artifact directory name from JSONL file path
+              # Supported directory structures:
+              #   1. Expected: ci-results/ARTIFACT_NAME/.mage-x/ci-results.jsonl
+              #      → Use grandparent (skip .mage-x) to get ARTIFACT_NAME
+              #   2. Fallback: ci-results/ARTIFACT_NAME/ci-results.jsonl
+              #      → Use parent directory as ARTIFACT_NAME
               ARTIFACT_DIR=$(dirname "$(dirname "$jsonl_file")" | xargs basename)
               JSONL_NAME=$(basename "$jsonl_file")
+
+              # Detect which structure we have by checking parent directory
+              PARENT_DIR=$(basename "$(dirname "$jsonl_file")")
+              if [[ "$PARENT_DIR" != ".mage-x" ]]; then
+                # Fallback: parent is the artifact dir (not grandparent)
+                ARTIFACT_DIR=$(basename "$(dirname "$jsonl_file")")
+              fi
+
               TEST_LABEL=$(parse_test_label "$ARTIFACT_DIR" "$JSONL_NAME")
 
               SUMMARY=$(grep '"type":"summary"' "$jsonl_file" 2>/dev/null | head -1 || echo "")
@@ -306,7 +332,7 @@ jobs:
                   echo "- ❌ **$TEST_LABEL**: $FAILED failures" >> $GITHUB_STEP_SUMMARY
                 fi
               fi
-            done
+            done < <(find ci-results/ -name "*.jsonl" -print0 2>/dev/null)
           fi
 
           # Add detailed failure section if there are failures
@@ -318,8 +344,8 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
 
             FAILURE_COUNT=0
-            for jsonl_file in $(find ci-results/ -name "*.jsonl" 2>/dev/null); do
-              grep '"type":"failure"' "$jsonl_file" 2>/dev/null | while read -r line; do
+            while IFS= read -r -d '' jsonl_file; do
+              while read -r line; do
                 # Limit total failures shown
                 FAILURE_COUNT=$((FAILURE_COUNT + 1))
                 if [[ $FAILURE_COUNT -gt 20 ]]; then
@@ -379,8 +405,8 @@ jobs:
                 echo "" >> $GITHUB_STEP_SUMMARY
                 echo "</details>" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY
-              done
-            done
+              done < <(grep '"type":"failure"' "$jsonl_file" 2>/dev/null)
+            done < <(find ci-results/ -name "*.jsonl" -print0 2>/dev/null)
           fi
 
       # --------------------------------------------------------------------
