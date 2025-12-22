@@ -4,8 +4,8 @@ go 1.24.3
 
 require (
 	github.com/bitcoin-sv/spv-wallet/models v1.0.0-beta.46
-	github.com/bsv-blockchain/go-sdk v1.2.13
-	github.com/go-resty/resty/v2 v2.17.0
+	github.com/bsv-blockchain/go-sdk v1.2.14
+	github.com/go-resty/resty/v2 v2.17.1
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/pquerna/otp v1.5.0
 	github.com/stretchr/testify v1.11.1
