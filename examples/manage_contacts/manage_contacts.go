@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
-	"github.com/bitcoin-sv/spv-wallet/models/response"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/response"
 
 	wallet "github.com/bsv-blockchain/spv-wallet-go-client"
 	"github.com/bsv-blockchain/spv-wallet-go-client/commands"

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet/models"
+	"github.com/bsv-blockchain/spv-wallet/models"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
 
@@ -121,10 +121,13 @@ func TestMerkleRootsAPI_SyncMerkleRoots_PartialResponsesStoredSuccessfully(t *te
 	url := testutils.FullAPIURL(t, merkleRootsURL)
 	wallet, transport := testutils.GivenSPVUserAPI(t)
 
-	var expected []models.MerkleRoot
-	expected = append(expected, merklerootstest.FirstMerkleRootsPage().Content...)
-	expected = append(expected, merklerootstest.SecondMerkleRootsPage().Content...)
-	expected = append(expected, merklerootstest.ThirdMerkleRootsPage().Content...)
+	first := merklerootstest.FirstMerkleRootsPage()
+	second := merklerootstest.SecondMerkleRootsPage()
+	third := merklerootstest.ThirdMerkleRootsPage()
+	expected := make([]models.MerkleRoot, 0, len(first.Content)+len(second.Content)+len(third.Content))
+	expected = append(expected, first.Content...)
+	expected = append(expected, second.Content...)
+	expected = append(expected, third.Content...)
 
 	transport.RegisterResponder(http.MethodGet, url, merklerootstest.ResponderWithThreeMerkleRootPagesSuccess(t))
 

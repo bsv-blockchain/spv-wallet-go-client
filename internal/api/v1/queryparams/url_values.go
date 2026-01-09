@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
 )
 
 type URLValues struct {

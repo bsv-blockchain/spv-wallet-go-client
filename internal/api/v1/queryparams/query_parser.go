@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
 
 	goclienterr "github.com/bsv-blockchain/spv-wallet-go-client/errors"
 	"github.com/bsv-blockchain/spv-wallet-go-client/queries"

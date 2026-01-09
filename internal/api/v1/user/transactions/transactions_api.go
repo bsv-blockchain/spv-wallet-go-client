@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
-	"github.com/bitcoin-sv/spv-wallet/models/response"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/response"
 	"github.com/go-resty/resty/v2"
 
 	"github.com/bsv-blockchain/spv-wallet-go-client/commands"
@@ -39,7 +39,7 @@ func (a *API) FinalizeTransaction(draft *response.DraftTransaction) (string, err
 }
 
 func (a *API) DraftToRecipients(ctx context.Context, r *commands.SendToRecipients) (*response.DraftTransaction, error) {
-	outputs := make([]*response.TransactionOutput, 0)
+	outputs := make([]*response.TransactionOutput, 0, len(r.Recipients))
 
 	for _, recipient := range r.Recipients {
 		outputs = append(outputs, &response.TransactionOutput{

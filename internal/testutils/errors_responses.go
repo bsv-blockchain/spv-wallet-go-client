@@ -3,7 +3,7 @@ package testutils
 import (
 	"net/http"
 
-	"github.com/bitcoin-sv/spv-wallet/models"
+	"github.com/bsv-blockchain/spv-wallet/models"
 
 	"github.com/bsv-blockchain/spv-wallet-go-client/errors"
 )

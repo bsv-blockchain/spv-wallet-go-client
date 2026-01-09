@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/bitcoin-sv/spv-wallet/models/response"
+	"github.com/bsv-blockchain/spv-wallet/models/response"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

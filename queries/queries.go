@@ -1,9 +1,9 @@
 package queries
 
 import (
-	"github.com/bitcoin-sv/spv-wallet/models"
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
-	"github.com/bitcoin-sv/spv-wallet/models/response"
+	"github.com/bsv-blockchain/spv-wallet/models"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/response"
 )
 
 // ContactsPage is an alias for the user contacts response page model returned by the SPV Wallet API.

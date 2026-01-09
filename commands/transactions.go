@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"github.com/bitcoin-sv/spv-wallet/models/response"
+	"github.com/bsv-blockchain/spv-wallet/models/response"
 
 	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"
 )

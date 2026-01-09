@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/bitcoin-sv/spv-wallet/models"
+	"github.com/bsv-blockchain/spv-wallet/models"
 
 	wallet "github.com/bsv-blockchain/spv-wallet-go-client"
 	"github.com/bsv-blockchain/spv-wallet-go-client/examples"

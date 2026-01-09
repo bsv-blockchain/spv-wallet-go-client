@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/bitcoin-sv/spv-wallet/models/filter"
+	"github.com/bsv-blockchain/spv-wallet/models/filter"
 	"github.com/go-resty/resty/v2"
 
 	"github.com/bsv-blockchain/spv-wallet-go-client/internal/api/v1/queryparams"

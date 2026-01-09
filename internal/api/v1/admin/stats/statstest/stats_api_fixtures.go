@@ -1,6 +1,6 @@
 package statstest
 
-import "github.com/bitcoin-sv/spv-wallet/models"
+import "github.com/bsv-blockchain/spv-wallet/models"
 
 func ExpectedStatsResponse() *models.AdminStats {
 	return &models.AdminStats{
