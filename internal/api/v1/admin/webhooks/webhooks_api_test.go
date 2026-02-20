@@ -49,7 +49,7 @@ func TestWebhooksAPI_SubscribeWebhook(t *testing.T) {
 			transport.RegisterResponder(http.MethodPost, url, tc.responder)
 
 			// then:
-			err := wallet.SubscribeWebhook(context.Background(), &commands.CreateWebhookSubscription{
+			err := wallet.SubscribeWebhook(context.Background(), &commands.CreateWebhookSubscription{ //nolint:gosec // test value, not a real credential
 				URL:         url,
 				TokenHeader: "Header",
 				TokenValue:  "76dd388f-62de-4957-afae-967c3a424bc7",
