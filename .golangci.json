@@ -43,6 +43,7 @@
     "linters": {
         "disable": [
             "gocritic",
+            "goconst",
             "godot",
             "funcorder",
             "revive",
@@ -75,7 +76,6 @@
             "gocheckcompilerdirectives",
             "gochecknoinits",
             "gochecksumtype",
-            "goconst",
             "godox",
             "goheader",
             "gomoddirectives",

@@ -45,7 +45,7 @@ func (q *QueryParser[F]) parse(val any, totalParams *URLValues) {
 			continue
 		}
 
-		if value.Kind() == reflect.Ptr && value.IsNil() {
+		if value.Kind() == reflect.Pointer && value.IsNil() {
 			continue
 		}
 
