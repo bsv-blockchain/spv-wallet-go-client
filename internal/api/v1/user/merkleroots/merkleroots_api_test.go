@@ -70,7 +70,8 @@ func TestMerkleRootsAPI_SyncMerkleRoots(t *testing.T) {
 		expectedErr error
 	}{
 		"Successful Sync with Pagination": {
-			responder: testutils.NewPaginatedJSONResponder(t,
+			responder: testutils.NewPaginatedJSONResponder(
+				t,
 				"merklerootstest/get_merkleroots_page1.json",
 				"merklerootstest/get_merkleroots_page2.json",
 			),
