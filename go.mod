@@ -3,7 +3,7 @@ module github.com/bsv-blockchain/spv-wallet-go-client
 go 1.25.0
 
 require (
-	github.com/bsv-blockchain/go-sdk v1.3.2
+	github.com/bsv-blockchain/go-sdk v1.3.3
 	github.com/bsv-blockchain/spv-wallet/models v1.0.1
 	github.com/go-resty/resty/v2 v2.17.2
 	github.com/jarcoal/httpmock v1.4.2
