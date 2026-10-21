@@ -18,6 +18,9 @@
 #   • Force‑push and delete‑branch disabled via branch‑protection rules.
 #   • PR limit = 10 to avoid queue flooding.
 #   • All dependency PRs require passing CI checks before merging.
+#   • Cooldown – new releases wait 3 days before a version update (gomod: patch 3,
+#     minor 7, major 14 days); first-party and trusted publishers are exempt.
+#     Security updates are never delayed by the cooldown.
 # ────────────────────────────────────────────────────────────────
 
 version: 2
@@ -41,6 +44,12 @@ updates:
         applies-to: version-updates
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    cooldown:
+      default-days: 3
+      semver-patch-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14
+      exclude: ["github.com/bsv-blockchain/*"]
     open-pull-requests-limit: 10
     assignees: ["mrz1836"]
     labels: ["chore", "dependencies", "gomod"]
@@ -64,6 +73,9 @@ updates:
     groups:
       ghactions-all:
         patterns: ["*"]
+    cooldown:
+      default-days: 3
+      exclude: ["actions/*", "github/*", "gitleaks/*", "ossf/*"]
     open-pull-requests-limit: 10
     assignees: ["mrz1836"]
     labels: ["chore", "dependencies", "github-actions"]
@@ -87,6 +99,9 @@ updates:
     groups:
       devcontainer-all:
         patterns: ["*"]
+    cooldown:
+      default-days: 3
+      exclude: ["ghcr.io/devcontainers/features/*"]
     open-pull-requests-limit: 5
     assignees: ["mrz1836"]
     labels: ["chore", "dependencies", "devcontainer"]
